@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
-// import { Store } from '@ngrx/store';
-// import { SubSink } from 'subsink';
+import { Store } from '@ngrx/store';
+import { SubSink } from 'subsink';
 
-// import { AppState } from '../store';
+import { AppState } from '../store';
 import { AuthService } from '../store';
 
 @Component({
@@ -14,7 +14,7 @@ import { AuthService } from '../store';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit, OnDestroy {
-  // private subs = new SubSink();
+  private subs = new SubSink();
   form: FormGroup;
   isAuth: boolean;
   hasError: boolean;
@@ -22,7 +22,7 @@ export class AuthPage implements OnInit, OnDestroy {
   isLoginMode = true;
 
   constructor(
-    // private store: Store<AppState>,
+    private store: Store<AppState>,
     private authService: AuthService,
     public loadingController: LoadingController,
     public alertController: AlertController
@@ -46,30 +46,30 @@ export class AuthPage implements OnInit, OnDestroy {
       })
     });
 
-    // this.subs.add(
-    //   this.store.select('auth')
-    //     .pipe(map(state => this.isAuth = state.isAuth))
-    //     .subscribe(isAuth => {
-    //       this.isAuth = isAuth;
-    //       if (this.isAuth) { this.clear(); }
-    //     }),
-    //   this.store.select('auth')
-    //     .pipe(map(state => state.authError))
-    //     .subscribe(err => {
-    //       this.hasError = !!err;
-    //       if (this.hasError) { this.presentAlert(err.header, err.message); }
-    //     }),
-    //   this.store.select('auth')
-    //     .pipe(map(state => state.loading))
-    //     .subscribe(loading => {
-    //       this.isLoading = loading;
-    //       if (this.isLoading) { this.presentLoading(); }
-    //     })
-    // );
+    this.subs.add(
+      this.store.select('auth')
+        .pipe(map(state => this.isAuth = state.isAuth))
+        .subscribe(isAuth => {
+          this.isAuth = isAuth;
+          if (this.isAuth) { this.clear(); }
+        }),
+      this.store.select('auth')
+        .pipe(map(state => state.authError))
+        .subscribe(err => {
+          this.hasError = !!err;
+          if (this.hasError) { this.presentAlert(err.header, err.message); }
+        }),
+      this.store.select('auth')
+        .pipe(map(state => state.loading))
+        .subscribe(loading => {
+          this.isLoading = loading;
+          if (this.isLoading) { this.presentLoading(); }
+        })
+    );
   }
 
   ngOnDestroy() {
-    // this.subs.unsubscribe();
+    this.subs.unsubscribe();
   }
 
   submit() {

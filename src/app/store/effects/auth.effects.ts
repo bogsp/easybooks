@@ -128,7 +128,8 @@ export class AuthEffects {
     signupSuccess = this.actions$.pipe(
         ofType<SignupSuccess>(ActionTypes.SIGNUP_SUCCESS),
         map(res => {
-            this.router.navigate(['tabs', 'profile', res.payload.userId]);
+            // this.router.navigate(['tabs', 'dashboard', res.payload.userId]);
+            this.router.navigate(['tabs', 'dashboard']);
         })
     );
 
@@ -167,7 +168,8 @@ export class AuthEffects {
         ofType<LoginSuccess>(ActionTypes.LOGIN_SUCCESS),
         map(res => {
             // this.router.navigate(['home']);
-            this.router.navigate(['tabs', 'profile', res.payload.userId]);
+            // this.router.navigate(['tabs', 'dashboard', res.payload.userId]);
+            this.router.navigate(['tabs', 'dashboard']);
         })
     );
 
