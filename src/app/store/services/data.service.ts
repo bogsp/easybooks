@@ -7,7 +7,8 @@ import {
   Expense,
   Income,
   Profile,
-  Category
+  Category,
+  Types
 } from '../models';
 
 @Injectable({
@@ -56,7 +57,7 @@ export class DataService {
   }
 
   deleteItem(ref: string, key: any, id?: string) {
-    return from(this.collectionRef(ref, id).doc(key).delete());
+    return from( this.collectionRef(ref, id).doc(key).delete());
   }
 
   collectionRef(ref: string, id?: string) {
@@ -69,6 +70,8 @@ export class DataService {
         return this.db.collection<Income>('users').doc(id).collection(ref);
       case 'categories':
         return this.db.collection<Category>(ref);
+      case 'types':
+        return this.db.collection<Types>('categories').doc(id).collection(ref);
     }
   }
 
@@ -94,6 +97,11 @@ export class DataService {
           id: res.payload.doc.id,
           ...res.payload.doc.data()
         } as Category;
+      case 'types':
+        return {
+          id: res.payload.doc.id,
+          ...res.payload.doc.data()
+        } as Types;
     }
   }
 

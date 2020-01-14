@@ -44,20 +44,24 @@ export function CategoryReducer(
             setCat.push(action.payload.types);
             return {
                 ...state,
-                items: [...setItem]
+                items: [...setItem],
+                isLoading: false
             };
         case ActionTypes.SET_ALL:
             return {
                 ...state,
-                items: [...action.payload]
+                items: [...action.payload],
+                isLoading: false
             };
         case ActionTypes.SET_ALL_TYPES:
-            const setItems = { ...state.items };
-            const setCats = setItems[action.payload.id];
-            setCats.types = action.payload.types;
+            const setTypes: Category[] = [...state.items].map(c => {
+                if (c.id === action.payload.id) {
+                    return { ...c, types: [...action.payload.types] } as Category;
+                } else { return c; }
+            });
             return {
                 ...state,
-                items: [...setItems]
+                items: [...setTypes]
             };
         case ActionTypes.UPDATE:
             return {

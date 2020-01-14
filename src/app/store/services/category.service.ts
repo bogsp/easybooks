@@ -10,12 +10,13 @@ import {
     Delete,
     Fetch,
     FetchAll,
+    FetchAllTypes,
     StartEdit,
     StopEdit,
     Update,
-    FetchAllTypes,
 } from '../actions/category.actions';
 import { Category } from '../models';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -34,12 +35,20 @@ export class CategoryService {
         this.fetchAll();
 
         this.subs.sink = this.store.select('category')
-            .subscribe(state => {
-                this.items = state.items;
-                this.items.forEach(arr => {
-                    this.store.dispatch(new FetchAllTypes(arr.id));
-                });
-            });
+            .pipe(
+                take(2),
+                map(state => {
+                    this.items = state.items;
+                    if (this.items.length > 0) {
+                        this.items.forEach((c, i) => {
+                            setTimeout(() => {
+                                this.fetchAllTypes(c.id);
+                            }, i * 1000);
+                        });
+                    }
+                })
+            )
+            .subscribe();
 
         this.isAuth = this.authService.isAuth;
         if (!this.isAuth) { this.unsub(); }
@@ -47,6 +56,10 @@ export class CategoryService {
 
     fetchAll() {
         this.store.dispatch(new FetchAll());
+    }
+
+    fetchAllTypes(id: string) {
+        this.store.dispatch(new FetchAllTypes(id));
     }
 
     fetch(id: string) {

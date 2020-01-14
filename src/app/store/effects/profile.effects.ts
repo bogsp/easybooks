@@ -51,7 +51,7 @@ export class ProfileEffects {
     fetch = this.actions$.pipe(
         ofType<Fetch>(ActionTypes.FETCH),
         switchMap(action => this.dataService
-            .fetchItem(this.feature, action.payload)
+            .fetchItem(this.feature, action.payload, action.payload)
             .pipe(
                 map((item: Profile) => new Set(item)),
                 catchError(err => of(new Error(handleError(err))))

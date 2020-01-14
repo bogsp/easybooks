@@ -29,9 +29,9 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    // private expenseService: ExpenseService,
-    // private incomeService: IncomeService,
-    // private profileService: ProfileService,
+    private expenseService: ExpenseService,
+    private incomeService: IncomeService,
+    private profileService: ProfileService,
   ) { }
 
   ngOnInit() {

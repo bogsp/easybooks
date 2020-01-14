@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, from } from 'rxjs';
 import { switchMap, map, take, catchError, tap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -34,6 +34,7 @@ const handleError = (err: any) => {
 @Injectable()
 export class CategoryEffects {
     feature = 'categories';
+    sub = 'types';
 
     constructor(
         private actions$: Actions,
@@ -56,10 +57,10 @@ export class CategoryEffects {
     @Effect()
     fetchAllTypes = this.actions$.pipe(
         ofType<FetchAllTypes>(ActionTypes.FETCH_ALL_TYPES),
-        take(1),
         switchMap(action => this.dataService
-            .fetchAll(this.feature, action.payload)
+            .fetchAll(this.sub, action.payload)
             .pipe(
+                // tap((items: Types[]) => console.log(items)),
                 map((items: Types[]) => new SetAllTypes({ id: action.payload, types: [...items] })),
                 catchError(err => of(new Error(handleError(err))))
             )
@@ -96,7 +97,7 @@ export class CategoryEffects {
         ofType<AddType>(ActionTypes.ADD_TYPE),
         switchMap(action =>
             this.dataService
-                .addItem(this.feature, action.payload.item, action.payload.id)
+                .addItem(this.sub, action.payload.item, action.payload.id)
                 .pipe(
                     map(() => new SetType({ id: action.payload.id, types: action.payload.item })),
                     catchError(err => of(new Error(handleError(err))))
@@ -135,7 +136,7 @@ export class CategoryEffects {
         ofType<UpdateType>(ActionTypes.UPDATE_TYPE),
         switchMap(action =>
             this.dataService
-                .updateItem(this.feature, action.payload.item, action.payload.id)
+                .updateItem(this.sub, action.payload.item, action.payload.id)
                 .pipe(
                     map(() => new SetType({
                         id: action.payload.id,
@@ -164,7 +165,7 @@ export class CategoryEffects {
         ofType<DeleteType>(ActionTypes.DELETE_TYPE),
         switchMap(action =>
             this.dataService
-                .deleteItem(this.feature, action.payload.key, action.payload.id)
+                .deleteItem(this.sub, action.payload.key, action.payload.id)
                 .pipe(
                     catchError(err => of(new Error(handleError(err))))
                 )

@@ -1,17 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { SubSink } from 'subsink';
+
+import { AppState } from '../../store';
+import { Category, Types } from '../../store/models';
+import { FetchAllTypes } from '../../store/actions/category.actions';
 
 @Component({
   selector: 'app-income',
   templateUrl: './income.page.html',
   styleUrls: ['./income.page.scss'],
 })
-export class IncomePage implements OnInit {
+export class IncomePage implements OnInit, OnDestroy {
+  private subs = new SubSink();
+  category: Category;
+  types: Types[];
 
-  constructor() { }
+  constructor(
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit() {
+    this.subs.sink = this.store.select('category').subscribe(state => {
+      state.items.map(a => {
+        if (a.name === 'Income') {
+          this.category = a;
+          this.types = a.types;
+        }
+      });
+    });
   }
 
-  add() {}
+  add() { }
+
+  ngOnDestroy() { this.subs.unsubscribe(); }
 
 }

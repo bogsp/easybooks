@@ -16,7 +16,7 @@ import * as fromProfile from './profile.reducer';
 export interface AppState {
   auth: fromAuth.State;
   category: fromCategory.State;
-  expense: fromExpense.State;
+  expenses: fromExpense.State;
   income: fromIncome.State;
   user: fromProfile.State;
 }
@@ -24,7 +24,7 @@ export interface AppState {
 export const appReducers: ActionReducerMap<AppState> = {
   auth: fromAuth.AuthReducer,
   category: fromCategory.CategoryReducer,
-  expense: fromExpense.ExpenseReducer,
+  expenses: fromExpense.ExpenseReducer,
   income: fromIncome.IncomeReducer,
   user: fromProfile.ProfileReducer
 };
