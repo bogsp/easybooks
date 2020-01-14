@@ -24,7 +24,7 @@ export class DataService {
     return from(this.collectionRef(ref, id)
       .snapshotChanges()
       .pipe(
-        tap((docArray: any[]) => console.log(docArray)),
+        // tap((docArray: any[]) => console.log(docArray)),
         map((docArray: any[]) => {
           return docArray.map((res: any) => {
             return this.returnData(ref, res);
@@ -73,10 +73,6 @@ export class DataService {
   }
 
   returnData(ref: string, res: any) {
-    console.log({
-      id: res.payload.doc.id,
-      ...res.payload.doc.data()
-    });
     switch (ref) {
       case 'profiles':
         return {
