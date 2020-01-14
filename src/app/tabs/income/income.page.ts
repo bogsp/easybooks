@@ -4,7 +4,6 @@ import { SubSink } from 'subsink';
 
 import { AppState } from '../../store';
 import { Category, Types } from '../../store/models';
-import { FetchAllTypes } from '../../store/actions/category.actions';
 
 @Component({
   selector: 'app-income',
@@ -25,7 +24,6 @@ export class IncomePage implements OnInit, OnDestroy {
       state.items.map(a => {
         if (a.name === 'Income') {
           this.category = a;
-          this.types = a.types;
         }
       });
     });
