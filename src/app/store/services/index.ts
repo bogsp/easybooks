@@ -1,7 +1,15 @@
 import { AuthService } from './auth.service';
 import { DataService } from './data.service';
+import { ExpenseService } from './expense.service';
+import { IncomeService } from './income.service';
+import { ProfileService } from './profile.service';
+import { CategoryService } from './category.service';
 
 export {
     AuthService,
-    DataService
+    CategoryService,
+    DataService,
+    ExpenseService,
+    IncomeService,
+    ProfileService
 };

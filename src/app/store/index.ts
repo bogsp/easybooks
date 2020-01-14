@@ -6,7 +6,11 @@ import {
 } from './reducers';
 import {
     AuthService,
+    CategoryService,
     DataService,
+    ExpenseService,
+    IncomeService,
+    ProfileService,
 } from './services';
 
 export {
@@ -14,6 +18,10 @@ export {
     AppState,
     appReducers,
     AuthService,
+    CategoryService,
     DataService,
-    metaReducers
+    ExpenseService,
+    IncomeService,
+    metaReducers,
+    ProfileService
 };

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  CategoryService,
+  ExpenseService,
+  IncomeService,
+  ProfileService,
+} from '../../store';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +27,12 @@ export class DashboardPage implements OnInit {
   showEduc = false;
   showMisc = false;
 
-  constructor() { }
+  constructor(
+    private categoryService: CategoryService,
+    // private expenseService: ExpenseService,
+    // private incomeService: IncomeService,
+    // private profileService: ProfileService,
+  ) { }
 
   ngOnInit() {
     this.totalExpenses =
@@ -32,7 +43,7 @@ export class DashboardPage implements OnInit {
       this.totalMisc;
   }
 
-  add() {}
+  add() { }
 
   toggleHome(e: any) { this.showHome = !this.showHome; }
   toggleLiving(e: any) { this.showLiving = !this.showLiving; }
