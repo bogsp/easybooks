@@ -48,7 +48,7 @@ export class CategoryEffects {
         switchMap(() => this.dataService
             .fetchAll(this.feature)
             .pipe(
-                map((items: Category[]) => new SetAll(items)),
+                map((items: Category[]) => new SetAll(items.sort((a, b) => a.index - b.index))),
                 catchError(err => of(new Error(handleError(err))))
             )
         )
@@ -61,7 +61,7 @@ export class CategoryEffects {
             .fetchAll(this.sub, action.payload)
             .pipe(
                 // tap((items: Types[]) => console.log(items)),
-                map((items: Types[]) => new SetAllTypes({ id: action.payload, types: [...items] })),
+                map((items: Types[]) => new SetAllTypes({ id: action.payload, types: [...items].sort((a, b) => a.index - b.index ) })),
                 catchError(err => of(new Error(handleError(err))))
             )
         )
