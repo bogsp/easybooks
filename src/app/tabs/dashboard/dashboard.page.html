@@ -44,56 +44,56 @@
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
-          <ion-label>Home:</ion-label>
+          <ion-label>{{ categories[0]?.name }}</ion-label>
           <ion-text>{{ totalHome | currency: curr }}</ion-text>
           <ion-toggle slot="end" name="showHome" [checked]="showHome" (ionChange)="toggleHome($event)"></ion-toggle>
         </ion-item>
-        <app-house *ngIf="showHome"></app-house>
+        <app-house *ngIf="showHome" [category]="categories[0]"></app-house>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
-          <ion-label>Daily Living:</ion-label>
+          <ion-label>{{ categories[1]?.name }}</ion-label>
           <ion-text>{{ totalLiving | currency: curr }}</ion-text>
           <ion-toggle slot="end" name="showLiving" [checked]="showLiving" (ionChange)="toggleLiving($event)">
           </ion-toggle>
         </ion-item>
-        <app-living *ngIf="showLiving"></app-living>
+        <app-living *ngIf="showLiving" [category]="categories[1]"></app-living>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
-          <ion-label>Transportation:</ion-label>
+          <ion-label>{{ categories[2]?.name }}</ion-label>
           <ion-text>{{ totalTrans | currency: curr }}</ion-text>
           <ion-toggle slot="end" name="showTrans" [checked]="showTrans" (ionChange)="toggleTrans($event)"></ion-toggle>
         </ion-item>
-        <app-trans *ngIf="showTrans"></app-trans>
+        <app-trans *ngIf="showTrans" [category]="categories[2]"></app-trans>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
-          <ion-label>Education:</ion-label>
+          <ion-label>{{ categories[3]?.name }}</ion-label>
           <ion-text>{{ totalEduc | currency: curr }}</ion-text>
           <ion-toggle slot="end" name="showEduc" [checked]="showEduc" (ionChange)="toggleEduc($event)"></ion-toggle>
         </ion-item>
-        <app-educ *ngIf="showEduc"></app-educ>
+        <app-educ *ngIf="showEduc" [category]="categories[3]"></app-educ>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
-          <ion-label>Miscellaneous:</ion-label>
+          <ion-label>{{ categories[4]?.name }}</ion-label>
           <ion-text>{{ totalMisc | currency: curr }}</ion-text>
           <ion-toggle slot="end" name="showMisc" [checked]="showMisc" (ionChange)="toggleMisc($event)"></ion-toggle>
         </ion-item>
-        <app-misc *ngIf="showMisc"></app-misc>
+        <app-misc *ngIf="showMisc" [category]="categories[4]"></app-misc>
       </ion-col>
     </ion-row>
 

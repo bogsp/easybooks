@@ -4,6 +4,7 @@ import { SubSink } from 'subsink';
 
 import { AppState } from '../../store';
 import { Category, Types } from '../../store/models';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-income',
@@ -20,13 +21,16 @@ export class IncomePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.sink = this.store.select('category').subscribe(state => {
-      state.items.map(a => {
-        if (a.name === 'Income') {
-          this.category = a;
-        }
-      });
-    });
+    this.subs.sink = this.store
+      .select('category')
+      .pipe(
+        map(state => {
+          state.items.map(a => {
+            if (a.name === 'Income') { this.category = a; }
+          });
+        })
+      )
+      .subscribe();
   }
 
   add() { }

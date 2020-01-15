@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Category } from '../../../store/models';
 
 @Component({
   selector: 'app-trans',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trans.component.scss'],
 })
 export class TransComponent implements OnInit {
+  @Input() category: Category;
   curr = '';
   amount = 500;
 

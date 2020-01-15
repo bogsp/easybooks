@@ -1,42 +1,6 @@
 <ion-list class="ion-padding">
-  <ion-item>
-    <ion-label color="medium"><i><small>Vehicles Payment</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Auto Insurance</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Petrol/ Fuel</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Transportation Fare</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Repairs/ Maintenance</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>License/ Registration</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Other</small></i></ion-label>
+  <ion-item *ngFor="let i of category.types">
+    <ion-label color="medium"><i><small>{{ i.name }}</small></i></ion-label>
     <p>
       <ion-text>{{ amount | currency: curr }}</ion-text>
     </p>

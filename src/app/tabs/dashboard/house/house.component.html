@@ -1,54 +1,6 @@
 <ion-list class="ion-padding">
-  <ion-item>
-    <ion-label color="medium"><i><small>Mortgage</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Electricity</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Water</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Gas</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Phone</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Cable/Internet</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Maintenace</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Home Improvement</small></i></ion-label>
-    <p>
-      <ion-text>{{ amount | currency: curr }}</ion-text>
-    </p>
-  </ion-item>
-  <ion-item>
-    <ion-label color="medium"><i><small>Other</small></i></ion-label>
+  <ion-item *ngFor="let i of category.types">
+    <ion-label color="medium"><i><small>{{ i.name }}</small></i></ion-label>
     <p>
       <ion-text>{{ amount | currency: curr }}</ion-text>
     </p>

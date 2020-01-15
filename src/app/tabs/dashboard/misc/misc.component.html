@@ -1,6 +1,6 @@
 <ion-list class="ion-padding">
-  <ion-item *ngFor="let item of items">
-    <ion-label color="medium"><i><small>{{ item.category }}</small></i></ion-label>
+  <ion-item *ngFor="let i of category.types">
+    <ion-label color="medium"><i><small>{{ i.name }}</small></i></ion-label>
     <p>
       <ion-text>{{ amount | currency: curr }}</ion-text>
     </p>

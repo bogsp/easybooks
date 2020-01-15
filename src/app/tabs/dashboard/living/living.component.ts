@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Category } from '../../../store/models';
 
 @Component({
   selector: 'app-living',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./living.component.scss'],
 })
 export class LivingComponent implements OnInit {
+  @Input() category: Category;
   curr = '';
   amount = 500;
 

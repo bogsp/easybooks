@@ -1,17 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { SubSink } from 'subsink';
+
 import {
+  AppState,
   CategoryService,
   ExpenseService,
   IncomeService,
   ProfileService,
 } from '../../store';
+import { Category } from '../../store/models';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, OnDestroy {
+  private subs = new SubSink();
+  categories: Category[];
   curr = '';
   amount = 500;
   totalIncome = 1500;
@@ -28,6 +36,7 @@ export class DashboardPage implements OnInit {
   showMisc = false;
 
   constructor(
+    private store: Store<AppState>,
     private categoryService: CategoryService,
     private expenseService: ExpenseService,
     private incomeService: IncomeService,
@@ -35,6 +44,15 @@ export class DashboardPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.subs.sink = this.store
+    .select('category')
+    .pipe(
+      map(state => {
+        this.categories = state.items;
+      })
+    )
+    .subscribe();
+
     this.totalExpenses =
       this.totalHome +
       this.totalLiving +
@@ -50,5 +68,7 @@ export class DashboardPage implements OnInit {
   toggleTrans(e: any) { this.showTrans = !this.showTrans; }
   toggleEduc(e: any) { this.showEduc = !this.showEduc; }
   toggleMisc(e: any) { this.showMisc = !this.showMisc; }
+
+  ngOnDestroy() { this.subs.unsubscribe(); }
 
 }

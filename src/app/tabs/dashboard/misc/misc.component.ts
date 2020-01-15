@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Category } from '../../../store/models';
 
 @Component({
   selector: 'app-misc',
@@ -6,12 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./misc.component.scss'],
 })
 export class MiscComponent implements OnInit {
+  @Input() category: Category;
   curr = '';
   amount = 500;
-  items = [
-    { category: 'Pet Supplies' },
-    { category: 'Pet Grooming' },
-  ];
 
   constructor() { }
 
