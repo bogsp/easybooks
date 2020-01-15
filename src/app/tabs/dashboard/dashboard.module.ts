@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
+import { ExpensePageModule } from '../../modals';
 
 import { DashboardPage } from './dashboard.page';
 import { HouseComponent } from './house/house.component';
@@ -18,7 +19,8 @@ import { MiscComponent } from './misc/misc.component';
     CommonModule,
     FormsModule,
     IonicModule,
-    DashboardPageRoutingModule
+    DashboardPageRoutingModule,
+    ExpensePageModule
   ],
   declarations: [
     DashboardPage,

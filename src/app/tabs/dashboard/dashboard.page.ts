@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
 
+import { ExpensePage } from '../../modals';
 import {
   AppState,
   CategoryService,
@@ -10,8 +12,7 @@ import {
   IncomeService,
   ProfileService,
 } from '../../store';
-import { Category } from '../../store/models';
-import { LoadingController } from '@ionic/angular';
+import { Category, Expense } from '../../store/models';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ import { LoadingController } from '@ionic/angular';
 export class DashboardPage implements OnInit, OnDestroy {
   private subs = new SubSink();
   categories: Category[];
+  expenses: Expense[];
   isLoading = true;
   curr = '';
   amount = 500;
@@ -44,6 +46,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     private incomeService: IncomeService,
     private profileService: ProfileService,
     public loadingController: LoadingController,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -59,7 +62,13 @@ export class DashboardPage implements OnInit, OnDestroy {
         .subscribe(loading => {
           this.isLoading = loading;
           if (this.isLoading) { this.presentLoading(); }
-        })
+        }),
+
+        this.store.select('expenses')
+        .pipe(map(state => state.items))
+        .subscribe(items => {
+          this.expenses = items;
+        }),
     );
 
     this.totalExpenses =
@@ -72,8 +81,6 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   segmentChanged(e: any) { console.log(e); }
 
-  add() { }
-
   toggleHome(e: any) { this.showHome = !this.showHome; }
   toggleLiving(e: any) { this.showLiving = !this.showLiving; }
   toggleTrans(e: any) { this.showTrans = !this.showTrans; }
@@ -81,6 +88,17 @@ export class DashboardPage implements OnInit, OnDestroy {
   toggleMisc(e: any) { this.showMisc = !this.showMisc; }
 
   ngOnDestroy() { this.subs.unsubscribe(); }
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: ExpensePage,
+      componentProps: {
+        newExpense: true,
+        categories: this.categories
+      }
+    });
+    return await modal.present();
+  }
 
   async presentLoading() {
     const loading = await this.loadingController.create({
