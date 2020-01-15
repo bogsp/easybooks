@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 
@@ -105,7 +106,7 @@ export class CategoryService {
 
     getIsEditing() { return this.isEditing; }
 
-    getIsLoading() { return this.isLoading; }
+    getIsLoading() { return of(this.isLoading); }
 
     getError() { return this.error; }
 

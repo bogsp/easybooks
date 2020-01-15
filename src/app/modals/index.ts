@@ -1,11 +1,11 @@
-import { ExpensePage } from './expense/expense.page';
-import { ExpensePageModule } from './expense/expense.module';
-import { IncomePage } from '../tabs/income/income.page';
-import { IncomePageModule } from '../tabs/income/income.module';
+import { ExpenseModalPage } from './expense-modal/expense-modal.page';
+import { ExpenseModalPageModule } from './expense-modal/expense-modal.module';
+import { IncomeModalPage } from './income-modal/income-modal.page';
+import { IncomeModalPageModule } from './income-modal/income-modal.module';
 
 export {
-    ExpensePage,
-    ExpensePageModule,
-    IncomePage,
-    IncomePageModule
+    ExpenseModalPage,
+    ExpenseModalPageModule,
+    IncomeModalPage,
+    IncomeModalPageModule
 };

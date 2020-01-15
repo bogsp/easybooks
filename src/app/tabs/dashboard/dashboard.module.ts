@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
+import { SharedModule } from '../../shared/shared.module';
 
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
-import { ExpensePageModule } from '../../modals';
+import { ExpenseModalPageModule } from '../../modals';
 
 import { DashboardPage } from './dashboard.page';
 import { HouseComponent } from './house/house.component';
@@ -16,11 +13,9 @@ import { MiscComponent } from './misc/misc.component';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     DashboardPageRoutingModule,
-    ExpensePageModule
+    ExpenseModalPageModule
   ],
   declarations: [
     DashboardPage,

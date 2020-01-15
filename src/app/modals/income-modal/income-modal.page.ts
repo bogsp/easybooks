@@ -1,36 +1,31 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Category, Types } from 'src/app/store/models';
+import { ModalController, NavParams } from '@ionic/angular';
+
+import { Category, Types, Income } from '../../store/models';
 
 @Component({
-  selector: 'app-expense',
-  templateUrl: './expense.page.html',
-  styleUrls: ['./expense.page.scss'],
+  selector: 'app-income-modal',
+  templateUrl: './income-modal.page.html',
+  styleUrls: ['./income-modal.page.scss'],
 })
-export class ExpensePage implements OnInit {
-  @Input() newExpense: boolean;
-  @Input() categories: Category[];
+export class IncomeModalPage implements OnInit {
+  @Input() newIncome: boolean;
+  @Input() category: Category;
+  @Input() income: Income;
   form: FormGroup;
   types: Types[];
 
   constructor(
     private modalCtrl: ModalController,
     private navParams: NavParams
-  ) {
-    // componentProps can also be accessed at construction time using NavParams
-    // console.log(navParams.get('firstName'));
-  }
+  ) { }
 
   ngOnInit() {
+    if (this.category) { this.types = this.category.types; }
+
     this.form = new FormGroup({
       date: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [
-          Validators.required
-        ]
-      }),
-      category: new FormControl(null, {
         updateOn: 'blur',
         validators: [
           Validators.required
@@ -55,14 +50,9 @@ export class ExpensePage implements OnInit {
     });
   }
 
-  submit() { }
-
-  getTypes(item: Category) {
-    this.categories.map(i => {
-      if (i === item) { this.types = i.types; }
-    });
-    console.log(this.types);
-  }
+  submit() {
+    if (this.newIncome) {}
+   }
 
   dismiss() {
     this.modalCtrl.dismiss({
