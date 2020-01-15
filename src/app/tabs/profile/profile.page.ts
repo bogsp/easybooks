@@ -28,8 +28,8 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-   }
+  }
 
-   ngOnDestroy() { this.subs.unsubscribe(); }
+  ngOnDestroy() { this.subs.unsubscribe(); }
 
 }

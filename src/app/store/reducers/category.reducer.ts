@@ -61,7 +61,8 @@ export function CategoryReducer(
             });
             return {
                 ...state,
-                items: [...setTypes]
+                items: [...setTypes],
+                isLoading: false
             };
         case ActionTypes.UPDATE:
             return {

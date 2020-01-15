@@ -1,5 +1,5 @@
 export interface Expense {
-    id: string;
+    id?: string;
     date: string; // date
     category: string;
     categoryId: string;
@@ -7,4 +7,5 @@ export interface Expense {
     typeid: string;
     amount: number;
     description: string;
+    new: boolean;
 }

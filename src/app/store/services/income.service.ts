@@ -41,8 +41,8 @@ export class IncomeService {
     this.store.dispatch(new FetchAll(this.id));
   }
 
-  fetch(id: string) {
-    this.store.dispatch(new Fetch({ id: this.id, key: id }));
+  fetch(key: string) {
+    this.store.dispatch(new Fetch({ id: this.id, key }));
   }
 
   add(item: Income) {
@@ -57,8 +57,8 @@ export class IncomeService {
     this.store.dispatch(new Update({id: this.id, item}));
   }
 
-  delete(id: string) {
-    this.store.dispatch(new Delete({id: this.id, key: id}));
+  delete(key: string) {
+    this.store.dispatch(new Delete({id: this.id, key}));
   }
 
   startEdit() {

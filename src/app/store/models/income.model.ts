@@ -1,5 +1,5 @@
 export interface Income {
-    id: string;
+    id?: string;
     date: string; // date
     category: string;
     categoryId: string;
@@ -7,4 +7,5 @@ export interface Income {
     typeId: string;
     amount: number;
     description: string;
+    new: boolean;
 }

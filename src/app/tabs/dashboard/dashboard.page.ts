@@ -11,6 +11,7 @@ import {
   ProfileService,
 } from '../../store';
 import { Category } from '../../store/models';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,7 @@ import { Category } from '../../store/models';
 export class DashboardPage implements OnInit, OnDestroy {
   private subs = new SubSink();
   categories: Category[];
+  isLoading = true;
   curr = '';
   amount = 500;
   totalIncome = 1500;
@@ -41,17 +43,24 @@ export class DashboardPage implements OnInit, OnDestroy {
     private expenseService: ExpenseService,
     private incomeService: IncomeService,
     private profileService: ProfileService,
+    public loadingController: LoadingController,
   ) { }
 
   ngOnInit() {
-    this.subs.sink = this.store
-    .select('category')
-    .pipe(
-      map(state => {
-        this.categories = state.items;
-      })
-    )
-    .subscribe();
+    this.subs.add(
+      this.store.select('category')
+        .pipe(map(state => state.items))
+        .subscribe(items => {
+          this.categories = items;
+        }),
+
+      this.store.select('category')
+        .pipe(map(state => state.isLoading))
+        .subscribe(loading => {
+          this.isLoading = loading;
+          if (this.isLoading) { this.presentLoading(); }
+        })
+    );
 
     this.totalExpenses =
       this.totalHome +
@@ -60,6 +69,8 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.totalEduc +
       this.totalMisc;
   }
+
+  segmentChanged(e: any) { console.log(e); }
 
   add() { }
 
@@ -70,5 +81,15 @@ export class DashboardPage implements OnInit, OnDestroy {
   toggleMisc(e: any) { this.showMisc = !this.showMisc; }
 
   ngOnDestroy() { this.subs.unsubscribe(); }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+  }
+
 
 }
