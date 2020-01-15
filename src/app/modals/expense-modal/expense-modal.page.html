@@ -26,7 +26,7 @@
                   <ion-col>
                     <ion-item>
                       <ion-label position="floating" width="full">Date*</ion-label>
-                      <ion-datetime displayFormat="MMMM/DD/YYYY"></ion-datetime>
+                      <ion-datetime formControlName="date" displayFormat="MMM DD, YYYY" [value]=""></ion-datetime>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -34,8 +34,8 @@
                   <ion-col>
                     <ion-item>
                       <ion-label position="floating">Category*</ion-label>
-                      <ion-select autocomplete formControlName="category">
-                        <ion-select-option *ngFor="let item of categories" [value]="item.id" (click)="getTypes(item)">
+                      <ion-select autocomplete formControlName="category" (ionChange)="getTypes($event)">
+                        <ion-select-option *ngFor="let item of categories" [value]="item">
                           {{ item.name }}</ion-select-option>
                       </ion-select>
                     </ion-item>
@@ -46,7 +46,7 @@
                     <ion-item>
                       <ion-label position="floating">Type*</ion-label>
                       <ion-select autocomplete formControlName="type">
-                        <ion-select-option *ngFor="let item of types" [value]="item.id">{{ item.name }}
+                        <ion-select-option *ngFor="let item of types" [value]="item">{{ item.name }}
                         </ion-select-option>
                       </ion-select>
                     </ion-item>

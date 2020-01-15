@@ -69,7 +69,7 @@
           <ion-text>{{ totalHome | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showHome"></ion-toggle>
         </ion-item>
-        <app-house *ngIf="showHome" [category]="categories[0]"></app-house>
+        <app-house *ngIf="showHome" [category]="categories[0]" [expenses]="expenses"></app-house>
       </ion-col>
     </ion-row>
 
@@ -86,7 +86,7 @@
           <ion-toggle slot="end" [(ngModel)]="showLiving">
           </ion-toggle>
         </ion-item>
-        <app-living *ngIf="showLiving" [category]="categories[1]"></app-living>
+        <app-living *ngIf="showLiving" [category]="categories[1]" [expenses]="expenses"></app-living>
       </ion-col>
     </ion-row>
 
@@ -102,7 +102,7 @@
           <ion-text>{{ totalTrans | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showTrans"></ion-toggle>
         </ion-item>
-        <app-trans *ngIf="showTrans" [category]="categories[2]"></app-trans>
+        <app-trans *ngIf="showTrans" [category]="categories[2]" [expenses]="expenses"></app-trans>
       </ion-col>
     </ion-row>
 
@@ -118,7 +118,7 @@
           <ion-text>{{ totalEduc | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showEduc"></ion-toggle>
         </ion-item>
-        <app-educ *ngIf="showEduc" [category]="categories[3]"></app-educ>
+        <app-educ *ngIf="showEduc" [category]="categories[3]" [expenses]="expenses"></app-educ>
       </ion-col>
     </ion-row>
 
@@ -134,7 +134,7 @@
           <ion-text>{{ totalMisc | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showMisc"></ion-toggle>
         </ion-item>
-        <app-misc *ngIf="showMisc" [category]="categories[4]"></app-misc>
+        <app-misc *ngIf="showMisc" [category]="categories[4]" [expenses]="expenses"></app-misc>
       </ion-col>
     </ion-row>
 

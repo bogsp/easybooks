@@ -70,15 +70,16 @@ export class DashboardPage implements OnInit, OnDestroy {
         .pipe(map(state => state.items))
         .subscribe(items => {
           this.expenses = items;
-        })
+        }),
+      this.store
+        .select('expenses')
+        .pipe(map(state => state.total))
+        .subscribe(total => {
+          this.totalExpenses = total;
+        }),
+
     );
 
-    this.totalExpenses =
-      this.totalHome +
-      this.totalLiving +
-      this.totalTrans +
-      this.totalEduc +
-      this.totalMisc;
   }
 
   segmentChanged(e: any) { console.log(e.detail.value); }

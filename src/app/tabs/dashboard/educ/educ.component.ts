@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Category } from '../../../store/models';
+import { Category, Expense } from '../../../store/models';
 
 @Component({
   selector: 'app-educ',
@@ -8,6 +8,7 @@ import { Category } from '../../../store/models';
 })
 export class EducComponent implements OnInit {
   @Input() category: Category;
+  @Input() expenses: Expense[];
   curr = '';
   amount = 500;
 

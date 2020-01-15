@@ -3,6 +3,7 @@ import { NavParams, ModalController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Category, Types, Expense } from '../../store/models';
+import { ExpenseService } from '../../store';
 
 @Component({
   selector: 'app-expense-modal',
@@ -12,11 +13,12 @@ import { Category, Types, Expense } from '../../store/models';
 export class ExpenseModalPage implements OnInit {
   @Input() newExpense: boolean;
   @Input() categories: Category[];
-  @Input() expense: Expense[];
+  @Input() expense: Expense;
   form: FormGroup;
   types: Types[];
 
   constructor(
+    private expenseService: ExpenseService,
     private modalCtrl: ModalController,
     private navParams: NavParams
   ) {
@@ -57,13 +59,26 @@ export class ExpenseModalPage implements OnInit {
     });
   }
 
-  submit() { }
+  submit() {
+    if (this.newExpense) {
+      this.expenseService.add({
+        date: this.form.value.date,
+        category: this.form.value.category.name,
+        categoryId: this.form.value.category.id,
+        type: this.form.value.type.name,
+        typeid: this.form.value.type.id,
+        amount: this.form.value.amount,
+        description: this.form.value.description,
+        new: true
+      });
+    } else { console.log(this.expense); }
+    this.dismiss();
+  }
 
-  getTypes(item: Category) {
+  getTypes(e: any) {
     this.categories.map(i => {
-      if (i === item) { this.types = i.types; }
+      if (i === e.detail.value) { this.types = i.types; }
     });
-    console.log(this.types);
   }
 
   dismiss() {

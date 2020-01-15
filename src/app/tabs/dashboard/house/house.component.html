@@ -1,5 +1,5 @@
 <ion-list class="ion-padding">
-  <ion-item *ngFor="let i of category.types">
+  <ion-item *ngFor="let i of category.types" (click)="presentModal(i)">
     <ion-label color="medium"><i><small>{{ i.name }}</small></i></ion-label>
     <p>
       <ion-text>{{ amount | currency: curr }}</ion-text>

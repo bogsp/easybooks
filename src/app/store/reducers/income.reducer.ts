@@ -7,6 +7,7 @@ export interface State {
     itemId: string;
     isEditing: boolean;
     isLoading: boolean;
+    total: number;
     error: { header: string, message: string };
 }
 
@@ -16,6 +17,7 @@ const initialState: State = {
     itemId: null,
     isEditing: false,
     isLoading: false,
+    total: 0,
     error: null
 };
 
@@ -38,9 +40,11 @@ export function IncomeReducer(
                 isLoading: false
             };
         case ActionTypes.SET_ALL:
+            const totals = [...action.payload].reduce((a, e) => a + e.amount, 0);
             return {
                 ...state,
-                items: [...action.payload]
+                items: [...action.payload],
+                total: totals
             };
         case ActionTypes.UPDATE:
             return {

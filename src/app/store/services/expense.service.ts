@@ -29,6 +29,7 @@ export class ExpenseService {
   itemId: string;
   isEditing: boolean;
   isLoading: boolean;
+  total: number;
   error: { header: string; message: string };
 
   constructor(
@@ -74,6 +75,13 @@ export class ExpenseService {
         .pipe(map(state => state.isLoading))
         .subscribe(loading => {
           this.isLoading = loading;
+        }),
+
+      this.store
+        .select('expenses')
+        .pipe(map(state => state.total))
+        .subscribe(total => {
+          this.total = total;
         }),
 
       this.store

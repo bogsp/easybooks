@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
-import { ExpenseModalPageModule } from '../../modals';
+import { ExpenseModalPageModule, ListModalPageModule } from '../../modals';
 
 import { DashboardPage } from './dashboard.page';
 import { HouseComponent } from './house/house.component';
@@ -15,7 +15,8 @@ import { MiscComponent } from './misc/misc.component';
   imports: [
     SharedModule,
     DashboardPageRoutingModule,
-    ExpenseModalPageModule
+    ExpenseModalPageModule,
+    ListModalPageModule
   ],
   declarations: [
     DashboardPage,
