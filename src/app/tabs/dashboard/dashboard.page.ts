@@ -50,26 +50,9 @@ export class DashboardPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.add(
-      this.store.select('category')
-        .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.categories = items;
-        }),
-
-      this.store.select('category')
-        .pipe(map(state => state.isLoading))
-        .subscribe(loading => {
-          this.isLoading = loading;
-          if (this.isLoading) { this.presentLoading(); }
-        }),
-
-        this.store.select('expenses')
-        .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.expenses = items;
-        }),
-    );
+    this.categories = this.categoryService.getItems();
+    this.isLoading = this.categoryService.getIsLoading();
+    this.expenses = this.expenseService.getItems();
 
     this.totalExpenses =
       this.totalHome +
@@ -80,6 +63,8 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   segmentChanged(e: any) { console.log(e); }
+
+  toggle(b: boolean) { b = !b; }
 
   toggleHome(e: any) { this.showHome = !this.showHome; }
   toggleLiving(e: any) { this.showLiving = !this.showLiving; }
@@ -108,6 +93,5 @@ export class DashboardPage implements OnInit, OnDestroy {
 
     const { role, data } = await loading.onDidDismiss();
   }
-
 
 }

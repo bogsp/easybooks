@@ -67,7 +67,7 @@
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[0]?.name }}</ion-label>
           <ion-text>{{ totalHome | currency: curr }}</ion-text>
-          <ion-toggle slot="end" name="showHome" [checked]="showHome" (ionChange)="toggleHome($event)"></ion-toggle>
+          <ion-toggle slot="end" name="showHome" [checked]="showHome" (ionChange)="toggle(showHome)"></ion-toggle>
         </ion-item>
         <app-house *ngIf="showHome" [category]="categories[0]"></app-house>
       </ion-col>

@@ -15,7 +15,6 @@ import {
   providedIn: 'root'
 })
 export class DataService {
-  id: string;
 
   constructor(
     private db: AngularFirestore,
