@@ -16,26 +16,22 @@
         <ion-item lines="none">
           <ion-text>{{ type.description }}</ion-text>
         </ion-item>
-        <ion-item lines="none">
-          <ion-text>ID: {{ type.id }}</ion-text>
-        </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="expenses?.length <= 0">
+    <ion-row *ngIf="items?.length <= 0">
       <ion-col size-md="6" offset-md="3">
         <ion-item lines="none">
           <ion-text>There are currently no items on this list.</ion-text>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="expenses.length > 0">
+    <ion-row *ngIf="items?.length > 0">
       <ion-col size-md="6" offset-md="3">
         <ion-list>
-          <ion-item *ngFor="let item of expenses">
+          <ion-item *ngFor="let item of items">
             <ion-label position="fixed">{{ item.date | date: 'MMM dd' }}</ion-label>
             <ion-label>{{ item.description }}</ion-label>
             <p>{{ item.amount | currency: curr }}</p>
-            <!-- <p>{{ item.date | date }} - {{ item.amount | currency: curr }}</p> -->
           </ion-item>
         </ion-list>
       </ion-col>

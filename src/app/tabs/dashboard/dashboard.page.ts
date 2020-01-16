@@ -86,6 +86,12 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
+  filterArr(id: string) {
+    return this.expenses
+    .filter(exp => exp.categoryId === id)
+    .reduce((a, e) => a + e.amount, 0);
+  }
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: ExpenseModalPage,

@@ -11,6 +11,7 @@ import { Types, Expense } from '../../store/models';
 export class ListModalPage implements OnInit {
   @Input() type: Types;
   @Input() expenses: Expense[];
+  items: Expense[];
   curr = '';
 
   constructor(
@@ -20,7 +21,8 @@ export class ListModalPage implements OnInit {
 
   ngOnInit() {
     if (this.expenses) {
-      this.expenses.map((a, b) => +a.date < b );
+      this.items = this.expenses
+        .filter(t => t.typeid === this.type.id);
     }
   }
 

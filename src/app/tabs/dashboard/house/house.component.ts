@@ -13,13 +13,18 @@ export class HouseComponent implements OnInit {
   @Input() category: Category;
   @Input() expenses: Expense[];
   curr = '';
-  amount = 500;
 
   constructor(
     public modalController: ModalController
     ) { }
 
   ngOnInit() {}
+
+  filterArr(id: string) {
+    return this.expenses
+    .filter(t => t.typeid === id)
+    .reduce((a, e) => a + e.amount, 0);
+  }
 
   async presentModal(i: Types) {
     const modal = await this.modalController.create({
