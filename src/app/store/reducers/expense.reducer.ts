@@ -44,7 +44,8 @@ export function ExpenseReducer(
             return {
                 ...state,
                 items: [...action.payload],
-                total: totals
+                total: totals,
+                isLoading: false
             };
         case ActionTypes.UPDATE:
             return {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, take } from 'rxjs/operators';
 import { SubSink } from 'subsink';
 
 import { AppState } from '..';
@@ -29,6 +28,7 @@ export class IncomeService {
   itemId: string;
   isEditing: boolean;
   isLoading: boolean;
+  total: number;
   error: { header: string; message: string };
 
   constructor(
@@ -36,71 +36,8 @@ export class IncomeService {
     private authService: AuthService,
   ) {
     this.uid = this.authService.user.id;
-    if (!!this.uid) {
-      this.fetchAll();
-    }
-
-    this.subs.add(
-      this.store
-        .select('income')
-        .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.items = items;
-        }),
-
-      this.store
-        .select('income')
-        .pipe(map(state => state.item))
-        .subscribe(item => {
-          this.item = item;
-        }),
-
-      this.store
-        .select('income')
-        .pipe(map(state => state.itemId))
-        .subscribe(itemId => {
-          this.itemId = itemId;
-        }),
-
-      this.store
-        .select('income')
-        .pipe(map(state => state.isEditing))
-        .subscribe(isEditing => {
-          this.isEditing = isEditing;
-        }),
-
-      this.store
-        .select('income')
-        .pipe(map(state => state.isLoading))
-        .subscribe(loading => {
-          this.isLoading = loading;
-        }),
-
-      this.store
-        .select('income')
-        .pipe(map(state => state.error))
-        .subscribe(error => {
-          this.error = error;
-        })
-    );
-
-    this.isAuth = this.authService.isAuth;
-    if (!this.isAuth) {
-      this.unsub();
-    }
+    if (!!this.uid) { this.fetchAll(); }
   }
-
-  getItem() { return this.item; }
-
-  getItems() { return this.items; }
-
-  getItemId() { return this.itemId; }
-
-  getIsEditing() { return this.isEditing; }
-
-  getIsLoading() { return this.isLoading; }
-
-  getError() { return this.error; }
 
   fetchAll() {
     this.store.dispatch(new FetchAll(this.uid));

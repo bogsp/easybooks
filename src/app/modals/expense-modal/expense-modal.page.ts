@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, AlertController } from '@ionic/angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { Category, Types, Expense } from '../../store/models';
@@ -20,7 +20,8 @@ export class ExpenseModalPage implements OnInit {
   constructor(
     private expenseService: ExpenseService,
     private modalCtrl: ModalController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    public alertController: AlertController
   ) {
     // componentProps can also be accessed at construction time using NavParams
     // console.log(navParams.get('categories'));
@@ -60,19 +61,21 @@ export class ExpenseModalPage implements OnInit {
   }
 
   submit() {
-    if (this.newExpense) {
-      this.expenseService.add({
-        date: this.form.value.date,
-        category: this.form.value.category.name,
-        categoryId: this.form.value.category.id,
-        type: this.form.value.type.name,
-        typeid: this.form.value.type.id,
-        amount: this.form.value.amount,
-        description: this.form.value.description,
-        new: true
-      });
-    } else { console.log(this.expense); }
-    this.dismiss();
+    if (this.form.valid) {
+      if (this.newExpense) {
+        this.expenseService.add({
+          date: this.form.value.date,
+          category: this.form.value.category.name,
+          categoryId: this.form.value.category.id,
+          type: this.form.value.type.name,
+          typeid: this.form.value.type.id,
+          amount: this.form.value.amount,
+          description: this.form.value.description,
+          new: true
+        });
+      } else { console.log(this.expense); }
+      this.dismiss();
+    } else { this.presentAlert(); }
   }
 
   getTypes(e: any) {
@@ -85,6 +88,20 @@ export class ExpenseModalPage implements OnInit {
     this.modalCtrl.dismiss({
       dismissed: true
     });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Incomplete Form',
+      message: 'Please complete the required fields.',
+      buttons: [
+        {
+          text: 'Ok'
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

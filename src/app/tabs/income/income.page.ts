@@ -5,7 +5,7 @@ import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
 
 import { AppState } from '../../store';
-import { Category, Types } from '../../store/models';
+import { Types, Income } from '../../store/models';
 import { IncomeModalPage } from '../../modals';
 
 @Component({
@@ -15,9 +15,15 @@ import { IncomeModalPage } from '../../modals';
 })
 export class IncomePage implements OnInit, OnDestroy {
   private subs = new SubSink();
-  categories: Category[];
-  category: Category;
+  item: Income;
+  items: Income[];
+  itemId: string;
+  isEditing: boolean;
+  isLoading: boolean;
+  total: number;
   types: Types[];
+  error: { header: string, message: string };
+  curr = '';
 
   constructor(
     private store: Store<AppState>,
@@ -26,21 +32,40 @@ export class IncomePage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.sink = this.store
-      .select('category')
-      .pipe(
-        map(state => {
-          state.items.map(a => {
-            if (a.name === 'Income') { this.category = a; }
-          });
-        })
-      )
-      .subscribe();
+    this.subs.add(
+      this.store
+        .select('income')
+        .pipe(map(state => state.types))
+        .subscribe(types => {
+          this.types = types;
+        }),
+
+      this.store
+        .select('income')
+        .pipe(map(state => state.items))
+        .subscribe(items => {
+          this.items = items;
+        }),
+
+      this.store
+        .select('expenses')
+        .pipe(map(state => state.total))
+        .subscribe(total => {
+          this.total = total;
+        }),
+    );
   }
 
-  add() { }
+  getAmount(id?: string) {
+    if (id) {
+      return this.items
+      .filter(exp => exp.typeid === id)
+      .reduce((a, e) => a + e.amount, 0);
+    }
+    return this.items.reduce((a, e) => a + e.amount, 0);
+  }
 
-  segmentChanged(e: any) { console.log(e.detail.value); }
+  filterArr(id: string) { return this.items.filter(exp => exp.typeid === id); }
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
@@ -49,7 +74,7 @@ export class IncomePage implements OnInit, OnDestroy {
       component: IncomeModalPage,
       componentProps: {
         newIncome: true,
-        category: this.category
+        types: this.types
       }
     });
     return await modal.present();

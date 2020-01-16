@@ -26,19 +26,13 @@ export class DashboardPage implements OnInit, OnDestroy {
   expenses: Expense[];
   isLoading: boolean;
   curr = '';
-  amount = 500;
   totalIncome = 1500;
   totalExpenses: number;
-  totalHome = 500;
-  totalLiving = 300;
-  totalTrans = 200;
-  totalEduc = 200;
-  totalMisc = 100;
-  showHome = false;
-  showLiving = false;
-  showTrans = false;
-  showEduc = false;
-  showMisc = false;
+  showHome = true;
+  showLiving = true;
+  showTrans = true;
+  showEduc = true;
+  showMisc = true;
 
   constructor(
     private store: Store<AppState>,
@@ -54,12 +48,19 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.subs.add(
       this.store
         .select('category')
+        .pipe(map(state => state.isLoading))
+        .subscribe(loading => {
+          this.isLoading = loading;
+          if (this.isLoading) { this.presentLoading(); }
+        }),
+      this.store
+        .select('category')
         .pipe(map(state => state.items))
         .subscribe(items => {
           this.categories = items;
         }),
       this.store
-        .select('category')
+        .select('expenses')
         .pipe(map(state => state.isLoading))
         .subscribe(loading => {
           this.isLoading = loading;
@@ -77,19 +78,36 @@ export class DashboardPage implements OnInit, OnDestroy {
         .subscribe(total => {
           this.totalExpenses = total;
         }),
-
+      this.store
+        .select('income')
+        .pipe(map(state => state.isLoading))
+        .subscribe(loading => {
+          this.isLoading = loading;
+          if (this.isLoading) { this.presentLoading(); }
+        }),
+      this.store
+        .select('income')
+        .pipe(map(state => state.total))
+        .subscribe(total => {
+          this.totalIncome = total;
+        }),
     );
 
   }
 
-  segmentChanged(e: any) { console.log(e.detail.value); }
+  refresh(event: any) {
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
   getAmount(id: string) {
     return this.expenses
-    .filter(exp => exp.categoryId === id)
-    .reduce((a, e) => a + e.amount, 0);
+      .filter(exp => exp.categoryId === id)
+      .reduce((a, e) => a + e.amount, 0);
   }
 
   async presentModal() {

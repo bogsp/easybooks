@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'user-modal',
+    loadChildren: () => import('./modals/user-modal/user-modal.module').then( m => m.UserModalPageModule)
   }
 ];
 

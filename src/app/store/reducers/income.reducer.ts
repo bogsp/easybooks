@@ -1,5 +1,5 @@
 import { ActionTypes, ActionsUnion } from '../actions/income.actions';
-import { Income } from '../models';
+import { Income, Types } from '../models';
 
 export interface State {
     item: Income;
@@ -8,6 +8,7 @@ export interface State {
     isEditing: boolean;
     isLoading: boolean;
     total: number;
+    types: Types[];
     error: { header: string, message: string };
 }
 
@@ -18,6 +19,32 @@ const initialState: State = {
     isEditing: false,
     isLoading: false,
     total: 0,
+    types: [
+        {
+            id: 'Y3QMZWsXDlcMa2mrVH81',
+            name: 'Salaries',
+            description: 'Income from salaries and wages.',
+            index: 0
+        },
+        {
+            id: 'CWrw4EQbigy2AaF7GMx6',
+            name: 'Sales',
+            description: 'Income from sales.',
+            index: 1
+        },
+        {
+            id: 'tf4Z8h8sMqSMoqYI4k4H',
+            name: 'Projects',
+            description: 'Income from projects and services.',
+            index: 2
+        },
+        {
+            id: '70Ka9KO9seyXBYoD5JEL',
+            name: 'Other',
+            description: 'Miscellaneous and other income.',
+            index: 3
+        },
+    ],
     error: null
 };
 
@@ -44,7 +71,8 @@ export function IncomeReducer(
             return {
                 ...state,
                 items: [...action.payload],
-                total: totals
+                total: totals,
+                isLoading: false
             };
         case ActionTypes.UPDATE:
             return {
