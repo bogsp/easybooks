@@ -20,7 +20,7 @@ export class EducComponent implements OnInit {
 
   ngOnInit() {}
 
-  filterArr(id: string) {
+  getAmount(id: string) {
     return this.expenses
     .filter(exp => exp.categoryId === this.category.id)
     .filter(t => t.typeid === id)

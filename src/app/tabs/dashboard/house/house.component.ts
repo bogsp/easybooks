@@ -20,7 +20,7 @@ export class HouseComponent implements OnInit {
 
   ngOnInit() {}
 
-  filterArr(id: string) {
+  getAmount(id: string) {
     return this.expenses
     .filter(t => t.typeid === id)
     .reduce((a, e) => a + e.amount, 0);

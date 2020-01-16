@@ -66,7 +66,7 @@
         </div>
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[0]?.name }}</ion-label>
-          <ion-text>{{ filterArr(categories[0]?.id) | currency: curr }}</ion-text>
+          <ion-text>{{ getAmount(categories[0]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showHome"></ion-toggle>
         </ion-item>
         <app-house *ngIf="showHome" [category]="categories[0]" [expenses]="expenses"></app-house>
@@ -82,7 +82,7 @@
         </div>
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[1]?.name }}</ion-label>
-          <ion-text>{{ filterArr(categories[1]?.id) | currency: curr }}</ion-text>
+          <ion-text>{{ getAmount(categories[1]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showLiving">
           </ion-toggle>
         </ion-item>
@@ -99,7 +99,7 @@
         </div>
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[2]?.name }}</ion-label>
-          <ion-text>{{ filterArr(categories[2]?.id) | currency: curr }}</ion-text>
+          <ion-text>{{ getAmount(categories[2]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showTrans"></ion-toggle>
         </ion-item>
         <app-trans *ngIf="showTrans" [category]="categories[2]" [expenses]="expenses"></app-trans>
@@ -115,7 +115,7 @@
         </div>
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[3]?.name }}</ion-label>
-          <ion-text>{{ filterArr(categories[3]?.id) | currency: curr }}</ion-text>
+          <ion-text>{{ getAmount(categories[3]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showEduc"></ion-toggle>
         </ion-item>
         <app-educ *ngIf="showEduc" [category]="categories[3]" [expenses]="expenses"></app-educ>
@@ -131,7 +131,7 @@
         </div>
         <ion-item *ngIf="!isLoading" lines="none">
           <ion-label>{{ categories[4]?.name }}</ion-label>
-          <ion-text>{{ filterArr(categories[4]?.id) | currency: curr }}</ion-text>
+          <ion-text>{{ getAmount(categories[4]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showMisc"></ion-toggle>
         </ion-item>
         <app-misc *ngIf="showMisc" [category]="categories[4]" [expenses]="expenses"></app-misc>

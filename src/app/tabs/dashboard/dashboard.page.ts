@@ -86,7 +86,7 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
-  filterArr(id: string) {
+  getAmount(id: string) {
     return this.expenses
     .filter(exp => exp.categoryId === id)
     .reduce((a, e) => a + e.amount, 0);

@@ -110,44 +110,24 @@ export class CategoryService {
 
     getError() { return this.error; }
 
-    fetchAll() {
-        this.store.dispatch(new FetchAll());
-    }
+    fetchAll() { this.store.dispatch(new FetchAll()); }
 
-    fetchAllTypes(id: string) {
-        this.store.dispatch(new FetchAllTypes(id));
-    }
+    fetchAllTypes(id: string) { this.store.dispatch(new FetchAllTypes(id)); }
 
-    fetch(id: string) {
-        this.store.dispatch(new Fetch(id));
-    }
+    fetch(id: string) { this.store.dispatch(new Fetch(id)); }
 
-    add(item: Category) {
-        this.store.dispatch(new Add(item));
-    }
+    add(item: Category) { this.store.dispatch(new Add(item)); }
 
-    addCustom(item: Category) {
-        this.store.dispatch(new AddCustom(item));
-    }
+    addCustom(item: Category) { this.store.dispatch(new AddCustom(item)); }
 
-    update(item: Category) {
-        this.store.dispatch(new Update(item));
-    }
+    update(item: Category) { this.store.dispatch(new Update(item)); }
 
-    delete(id: string) {
-        this.store.dispatch(new Delete(id));
-    }
+    delete(id: string) { this.store.dispatch(new Delete(id)); }
 
-    startEdit() {
-        this.store.dispatch(new StartEdit());
-    }
+    startEdit() { this.store.dispatch(new StartEdit()); }
 
-    stoptEdit() {
-        this.store.dispatch(new StopEdit());
-    }
+    stoptEdit() { this.store.dispatch(new StopEdit()); }
 
-    unsub() {
-        this.subs.unsubscribe();
-    }
+    unsub() { this.subs.unsubscribe(); }
 
 }
