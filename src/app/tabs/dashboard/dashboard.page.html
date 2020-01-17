@@ -66,7 +66,7 @@
           <ion-text>{{ getAmount(categories[0]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showHome"></ion-toggle>
         </ion-item>
-        <app-house *ngIf="showHome" [category]="categories[0]" [expenses]="expenses"></app-house>
+        <app-house *ngIf="showHome" [category]="categories[0]" [expenses]="expenses" [curr]="curr"></app-house>
       </ion-col>
     </ion-row>
 
@@ -83,7 +83,7 @@
           <ion-toggle slot="end" [(ngModel)]="showLiving">
           </ion-toggle>
         </ion-item>
-        <app-living *ngIf="showLiving" [category]="categories[1]" [expenses]="expenses"></app-living>
+        <app-living *ngIf="showLiving" [category]="categories[1]" [expenses]="expenses" [curr]="curr"></app-living>
       </ion-col>
     </ion-row>
 
@@ -99,7 +99,7 @@
           <ion-text>{{ getAmount(categories[2]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showTrans"></ion-toggle>
         </ion-item>
-        <app-trans *ngIf="showTrans" [category]="categories[2]" [expenses]="expenses"></app-trans>
+        <app-trans *ngIf="showTrans" [category]="categories[2]" [expenses]="expenses" [curr]="curr"></app-trans>
       </ion-col>
     </ion-row>
 
@@ -115,7 +115,7 @@
           <ion-text>{{ getAmount(categories[3]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showEduc"></ion-toggle>
         </ion-item>
-        <app-educ *ngIf="showEduc" [category]="categories[3]" [expenses]="expenses"></app-educ>
+        <app-educ *ngIf="showEduc" [category]="categories[3]" [expenses]="expenses" [curr]="curr"></app-educ>
       </ion-col>
     </ion-row>
 
@@ -131,7 +131,7 @@
           <ion-text>{{ getAmount(categories[4]?.id) | currency: curr }}</ion-text>
           <ion-toggle slot="end" [(ngModel)]="showMisc"></ion-toggle>
         </ion-item>
-        <app-misc *ngIf="showMisc" [category]="categories[4]" [expenses]="expenses"></app-misc>
+        <app-misc *ngIf="showMisc" [category]="categories[4]" [expenses]="expenses" [curr]="curr"></app-misc>
       </ion-col>
     </ion-row>
 

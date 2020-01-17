@@ -25,8 +25,8 @@ export class DashboardPage implements OnInit, OnDestroy {
   categories: Category[];
   expenses: Expense[];
   isLoading: boolean;
-  curr = '';
-  totalIncome = 1500;
+  curr: string;
+  totalIncome: number;
   totalExpenses: number;
   showHome = true;
   showLiving = true;
@@ -46,6 +46,12 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.add(
+      this.store
+        .select('user')
+        .pipe(map(state => state.curency))
+        .subscribe(curency => {
+          this.curr = curency;
+        }),
       this.store
         .select('category')
         .pipe(map(state => state.isLoading))

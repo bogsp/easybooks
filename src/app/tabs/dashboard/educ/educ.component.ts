@@ -12,7 +12,7 @@ import { ListModalPage } from '../../../modals';
 export class EducComponent implements OnInit {
   @Input() category: Category;
   @Input() expenses: Expense[];
-  curr = '';
+  @Input() curr: string;
 
   constructor(
     public modalController: ModalController
