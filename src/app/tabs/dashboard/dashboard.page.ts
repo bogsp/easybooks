@@ -101,7 +101,7 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   }
 
-  filterDates(event: any) { console.log(event); }
+  filterDates(event: any) { console.log(event.detail.value); }
 
   refresh(event: any) {
     setTimeout(() => {
