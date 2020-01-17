@@ -11,17 +11,20 @@ import { IncomeService } from '../../store';
   styleUrls: ['./income-modal.page.scss'],
 })
 export class IncomeModalPage implements OnInit {
-  @Input() newIncome: boolean;
   @Input() types: Types[];
-  @Input() income: Income;
+  @Input() item: Income;
   form: FormGroup;
+  isNew: boolean;
 
   constructor(
     private modalCtrl: ModalController,
     private navParams: NavParams,
     private incomeService: IncomeService,
     public alertController: AlertController
-  ) { }
+  ) {
+    this.item = navParams.get('item');
+    this.isNew = !this.item;
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -48,24 +51,36 @@ export class IncomeModalPage implements OnInit {
         validators: []
       })
     });
+
+    if (!this.isNew) {
+      this.form.patchValue({
+        date: this.item.date,
+        type: this.getType(this.item.typeid),
+        amount: this.item.amount,
+        description: this.item.description
+      });
+    }
   }
 
   submit() {
-    console.log(this.form.value);
     if (this.form.valid) {
-      if (this.newIncome) {
-        this.incomeService.add({
-          date: this.form.value.date,
-          type: this.form.value.type.name,
-          typeid: this.form.value.type.id,
-          amount: this.form.value.amount,
-          description: this.form.value.description,
-          new: true
-        });
-      } else { console.log(this.form.value); }
+      this.item = {
+        date: this.form.value.date,
+        type: this.form.value.type.name,
+        typeid: this.form.value.type.id,
+        amount: this.form.value.amount,
+        description: this.form.value.description
+      };
+      if (this.isNew) {
+        this.incomeService.add(this.item);
+      } else {
+        this.incomeService.update(this.item);
+      }
       this.dismiss();
     } else { this.presentAlert(); }
   }
+
+  getType(id: string) { return this.types.find(t => t.id === id); }
 
   dismiss() {
     this.modalCtrl.dismiss({

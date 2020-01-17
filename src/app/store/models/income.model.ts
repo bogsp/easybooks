@@ -5,5 +5,4 @@ export interface Income {
     typeid: string;
     amount: number;
     description: string;
-    new: boolean;
 }

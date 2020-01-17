@@ -13,9 +13,10 @@ import { ExpenseService } from '../../store';
 export class ExpenseModalPage implements OnInit {
   @Input() newExpense: boolean;
   @Input() categories: Category[];
-  @Input() expense: Expense;
+  @Input() item: Expense;
   form: FormGroup;
   types: Types[];
+  isNew: boolean;
 
   constructor(
     private expenseService: ExpenseService,
@@ -23,8 +24,8 @@ export class ExpenseModalPage implements OnInit {
     private navParams: NavParams,
     public alertController: AlertController
   ) {
-    // componentProps can also be accessed at construction time using NavParams
-    // console.log(navParams.get('categories'));
+    this.item = navParams.get('item');
+    this.isNew = !this.item;
   }
 
   ngOnInit() {
@@ -58,25 +59,39 @@ export class ExpenseModalPage implements OnInit {
         validators: []
       })
     });
+    if (!this.isNew) {
+      console.log(this.item);
+      this.form.patchValue({
+        date: this.item.date,
+        category: this.getCategory(this.item.categoryId),
+        type: this.getType(this.item.typeid),
+        amount: this.item.amount,
+        description: this.item.description
+      });
+    }
   }
 
   submit() {
     if (this.form.valid) {
-      if (this.newExpense) {
-        this.expenseService.add({
-          date: this.form.value.date,
-          category: this.form.value.category.name,
-          categoryId: this.form.value.category.id,
-          type: this.form.value.type.name,
-          typeid: this.form.value.type.id,
-          amount: this.form.value.amount,
-          description: this.form.value.description,
-          new: true
-        });
-      } else { console.log(this.expense); }
+      this.item = {
+        date: this.form.value.date,
+        category: this.form.value.category.name,
+        categoryId: this.form.value.category.id,
+        type: this.form.value.type.name,
+        typeid: this.form.value.type.id,
+        amount: this.form.value.amount,
+        description: this.form.value.description
+      };
+      if (this.isNew) {
+        this.expenseService.add(this.item);
+      } else { this.expenseService.update(this.item); }
       this.dismiss();
     } else { this.presentAlert(); }
   }
+
+  getCategory(id: string) { return this.categories.find(c => c.id === id); }
+
+  getType(id: string) { return this.types.find(t => t.id === id); }
 
   getTypes(e: any) {
     this.categories.map(i => {

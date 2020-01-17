@@ -98,15 +98,12 @@ export class ExpenseEffects {
         )
     );
 
-    @Effect()
+    @Effect({ dispatch: false })
     delete = this.actions$.pipe(
         ofType<Delete>(ActionTypes.DELETE),
         switchMap(action =>
             this.dataService
                 .deleteItem(this.feature, action.payload.key, action.payload.id)
-                .pipe(
-                    catchError(err => of(new Error(handleError(err))))
-                )
         )
     );
 }

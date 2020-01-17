@@ -7,5 +7,4 @@ export interface Expense {
     typeid: string;
     amount: number;
     description: string;
-    new: boolean;
 }

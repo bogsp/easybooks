@@ -37,8 +37,6 @@ const storeLocalData = (
 };
 
 const handleError = (err: any) => {
-    console.log(err.code);
-
     let errorRes = { header: 'Error!', message: 'An unknown error occured!' };
 
     if (err.code) {

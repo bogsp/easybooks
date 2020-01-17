@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
 
@@ -28,11 +27,11 @@ export class DashboardPage implements OnInit, OnDestroy {
   curr: string;
   totalIncome: number;
   totalExpenses: number;
-  showHome = true;
-  showLiving = true;
-  showTrans = true;
-  showEduc = true;
-  showMisc = true;
+  showHome = false;
+  showLiving = false;
+  showTrans = false;
+  showEduc = false;
+  showMisc = false;
 
   constructor(
     private store: Store<AppState>,
@@ -103,26 +102,26 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   filterDates(event: any) { console.log(event.detail.value); }
 
-  refresh(event: any) {
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
-  }
-
-  ngOnDestroy() { this.subs.unsubscribe(); }
-
   getAmount(id: string) {
     return this.expenses
       .filter(exp => exp.categoryId === id)
       .reduce((a, e) => a + e.amount, 0);
   }
 
+  ngOnDestroy() { this.subs.unsubscribe(); }
+
+  refresh(event: any) {
+    // this.expenseService.fetchAll();
+    // this.incomeService.fetchAll();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: ExpenseModalPage,
       componentProps: {
-        newExpense: true,
         categories: this.categories
       }
     });

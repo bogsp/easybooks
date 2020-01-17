@@ -52,6 +52,13 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
+  refresh(event: any) {
+    // this.profileService.fetchAll();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
   async presentModal() {
     const modal = await this.modalController.create({
       component: UserModalPage,

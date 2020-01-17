@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
 
-import { AppState } from '../../store';
+import { AppState, IncomeService } from '../../store';
 import { Types, Income } from '../../store/models';
 import { IncomeModalPage } from '../../modals';
 
@@ -27,6 +27,7 @@ export class IncomePage implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
+    private incomeService: IncomeService,
     public loadingController: LoadingController,
     public modalController: ModalController
   ) { }
@@ -55,11 +56,13 @@ export class IncomePage implements OnInit, OnDestroy {
     );
   }
 
+  delete(i: string) { this.incomeService.delete(i); }
+
   getAmount(id?: string) {
     if (id) {
       return this.items
-      .filter(exp => exp.typeid === id)
-      .reduce((a, e) => a + e.amount, 0);
+        .filter(exp => exp.typeid === id)
+        .reduce((a, e) => a + e.amount, 0);
     }
     return this.items.reduce((a, e) => a + e.amount, 0);
   }
@@ -70,11 +73,18 @@ export class IncomePage implements OnInit, OnDestroy {
 
   ngOnDestroy() { this.subs.unsubscribe(); }
 
-  async presentModal() {
+  refresh(event: any) {
+    // this.incomeService.fetchAll();
+    setTimeout(() => {
+      event.target.complete();
+    }, 2000);
+  }
+
+  async presentModal(i?: Income) {
     const modal = await this.modalController.create({
       component: IncomeModalPage,
       componentProps: {
-        newIncome: true,
+        item: i,
         types: this.types
       }
     });
