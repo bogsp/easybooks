@@ -33,7 +33,8 @@ export class TransComponent implements OnInit {
       componentProps: {
         newIncome: true,
         type: i,
-        expenses: this.expenses
+        expenses: this.expenses,
+        curr: this.curr
       }
     });
     return await modal.present();

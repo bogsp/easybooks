@@ -11,8 +11,8 @@ import { Types, Expense } from '../../store/models';
 export class ListModalPage implements OnInit {
   @Input() type: Types;
   @Input() expenses: Expense[];
+  @Input() curr: string;
   items: Expense[];
-  curr = '';
 
   constructor(
     private modalCtrl: ModalController,
