@@ -23,7 +23,7 @@ export class IncomePage implements OnInit, OnDestroy {
   total: number;
   types: Types[];
   error: { header: string, message: string };
-  curr = '';
+  curr: string;
 
   constructor(
     private store: Store<AppState>,
@@ -34,25 +34,24 @@ export class IncomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subs.add(
       this.store
+        .select('user')
+        .pipe(map(state => state.curency))
+        .subscribe(curency => { this.curr = curency; }),
+
+      this.store
         .select('income')
         .pipe(map(state => state.types))
-        .subscribe(types => {
-          this.types = types;
-        }),
+        .subscribe(types => { this.types = types; }),
 
       this.store
         .select('income')
         .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.items = items;
-        }),
+        .subscribe(items => { this.items = items; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.total))
-        .subscribe(total => {
-          this.total = total;
-        }),
+        .subscribe(total => { this.total = total; }),
     );
   }
 
