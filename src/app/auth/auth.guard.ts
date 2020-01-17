@@ -13,6 +13,6 @@ export class AuthGuard implements CanLoad {
   canLoad(
     route: Route,
     segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return this.authService.isAuth;
+    if (this.authService.isAuth) { return this.authService.isAuth; }
   }
 }

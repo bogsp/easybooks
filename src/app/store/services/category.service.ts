@@ -36,26 +36,8 @@ export class CategoryService {
         private store: Store<AppState>,
         private authService: AuthService
     ) {
-        // this.fetchAll();
 
         this.subs.add(
-            // this.store
-            //     .select('category')
-            //     .pipe(
-            //         take(2),
-            //         map(state => {
-            //             this.items = state.items;
-            //             if (this.items.length > 0) {
-            //                 this.items.forEach((c, i) => {
-            //                     setTimeout(() => {
-            //                         this.fetchAllTypes(c.id);
-            //                     }, i * 1000);
-            //                 });
-            //             }
-            //         })
-            //     )
-            //     .subscribe(),
-
             this.store
                 .select('category')
                 .pipe(map(state => state.items))

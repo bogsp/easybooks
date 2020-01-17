@@ -4,6 +4,7 @@ import { ExpenseService } from './expense.service';
 import { IncomeService } from './income.service';
 import { ProfileService } from './profile.service';
 import { CategoryService } from './category.service';
+import { SettingsService } from './settings.service';
 
 export {
     AuthService,
@@ -11,5 +12,6 @@ export {
     DataService,
     ExpenseService,
     IncomeService,
-    ProfileService
+    ProfileService,
+    SettingsService
 };

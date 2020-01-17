@@ -11,6 +11,7 @@ import {
     ExpenseService,
     IncomeService,
     ProfileService,
+    SettingsService
 } from './services';
 
 export {
@@ -23,5 +24,6 @@ export {
     ExpenseService,
     IncomeService,
     metaReducers,
-    ProfileService
+    ProfileService,
+    SettingsService
 };

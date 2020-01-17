@@ -8,7 +8,7 @@ export interface State {
 
 const initialState: State = {
     currency: '',
-    listview: 'all',
+    listview: 'All',
     isLoading: false
 };
 
