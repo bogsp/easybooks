@@ -4,11 +4,13 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
+import { UserModalPageModule } from '../../modals';
 
 @NgModule({
   imports: [
     SharedModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    UserModalPageModule
   ],
   declarations: [ProfilePage]
 })

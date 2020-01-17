@@ -6,6 +6,8 @@ export interface State {
     itemId: string;
     isEditing: boolean;
     isLoading: boolean;
+    curency: string;
+    listview: string;
     error: { header: string, message: string };
 }
 
@@ -14,6 +16,8 @@ const initialState: State = {
     itemId: null,
     isEditing: false,
     isLoading: false,
+    curency: '',
+    listview: 'all',
     error: null
 };
 
@@ -33,7 +37,9 @@ export function ProfileReducer(
                 ...state,
                 item: action.payload,
                 itemId: action.payload.id,
-                isLoading: false
+                isLoading: false,
+                curency: action.payload.currency,
+                listview: action.payload.listview
             };
         case ActionTypes.SET_ALL:
             return {

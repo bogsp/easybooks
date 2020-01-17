@@ -6,5 +6,7 @@ export interface Profile {
     lastname: string;
     email: string;
     img?: string;
-    settings: Settings;
+    currency: string;
+    listview: string;
+    valid: boolean;
 }

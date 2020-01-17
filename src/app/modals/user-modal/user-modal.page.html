@@ -1,9 +1,91 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>user-modal</ion-title>
+    <ion-title>{{ newItem ? 'New Profile' : item.firstname + ' ' + item.lastname}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button slot="secondary" (click)="dismiss()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="4" offset-md="4">
+        <div class="ion-padding">
+          <p>Please complete your profile.</p>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-md="4" offset-md="4">
+        <ion-card>
+          <ion-card-content>
+            <form [formGroup]="form">
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">First Name*</ion-label>
+                      <ion-input type="text" autocomplete formControlName="firstname"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">Last Name*</ion-label>
+                      <ion-input type="text" autocomplete formControlName="lastname"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">Image URL</ion-label>
+                      <ion-input type="text" autocomplete formControlName="picture"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">Currency</ion-label>
+                      <ion-select autocomplete formControlName="currency">
+                        <ion-select-option [value]="">USD</ion-select-option>
+                        <ion-select-option [value]="'PHP'">PHP</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label position="floating">List View</ion-label>
+                      <ion-select autocomplete formControlName="listview">
+                        <ion-select-option [value]="'all'">All</ion-select-option>
+                        <ion-select-option [value]="'today'">Today</ion-select-option>
+                        <ion-select-option [value]="'weekly'">Weekly</ion-select-option>
+                        <ion-select-option [value]="'monthly'">Monthly</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <div class="ion-padding">
+                      <ion-button (click)="submit()">Submit</ion-button>
+                      &nbsp;
+                      <ion-button (click)="dismiss()" color="danger">Cancel</ion-button>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
