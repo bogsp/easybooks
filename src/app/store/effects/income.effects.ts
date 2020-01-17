@@ -41,7 +41,7 @@ export class IncomeEffects {
         switchMap(action => this.dataService
             .fetchAll(this.feature, action.payload)
             .pipe(
-                map((items: Income[]) => new SetAll(items)),
+                map((items: Income[]) => new SetAll(items.sort((a, b) => (a.date > b.date) ? -1 : ((a.date < b.date) ? 1 : 0)))),
                 catchError(err => of(new Error(handleError(err))))
             )
         )
