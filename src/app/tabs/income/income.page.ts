@@ -64,6 +64,8 @@ export class IncomePage implements OnInit, OnDestroy {
     return this.items.reduce((a, e) => a + e.amount, 0);
   }
 
+  filterDates(event: any) { console.log(event); }
+
   filterArr(id: string) { return this.items.filter(exp => exp.typeid === id); }
 
   ngOnDestroy() { this.subs.unsubscribe(); }

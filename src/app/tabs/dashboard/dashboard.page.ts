@@ -101,6 +101,8 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   }
 
+  filterDates(event: any) { console.log(event); }
+
   refresh(event: any) {
     setTimeout(() => {
       console.log('Async operation has ended');

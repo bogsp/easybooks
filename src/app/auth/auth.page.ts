@@ -100,18 +100,20 @@ export class AuthPage implements OnInit, OnDestroy {
   }
 
   async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => { this.authService.clearError(); }
-        }
-      ]
-    });
+    if (header !== 'Auto Login Failed') {
+      const alert = await this.alertController.create({
+        header,
+        message,
+        buttons: [
+          {
+            text: 'Ok',
+            handler: () => { this.authService.clearError(); }
+          }
+        ]
+      });
 
-    await alert.present();
+      await alert.present();
+    }
   }
 
 }
