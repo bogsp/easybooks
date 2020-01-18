@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
@@ -6,13 +7,13 @@ import { SubSink } from 'subsink';
 import { ExpenseModalPage } from '../../modals';
 import {
   AppState,
+  AuthService,
   CategoryService,
   ExpenseService,
   IncomeService,
   ProfileService,
 } from '../../store';
 import { Category, Expense } from '../../store/models';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardPage implements OnInit, OnDestroy {
   private subs = new SubSink();
+  id: string;
   categories: Category[];
   expenses: Expense[];
   isLoading: boolean;
@@ -35,6 +37,7 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<AppState>,
+    private authService: AuthService,
     private categoryService: CategoryService,
     private expenseService: ExpenseService,
     private incomeService: IncomeService,
@@ -45,6 +48,22 @@ export class DashboardPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.add(
+      this.store
+        .select('auth')
+        .pipe(map(state => state.user.id))
+        .subscribe(id => {
+          this.id = id;
+        }),
+      this.store
+        .select('user')
+        .pipe(
+          take(1),
+          map(state => state.item))
+        .subscribe(item => {
+          if (this.id && !item) {
+            this.profileService.fetch(this.id);
+          }
+        }),
       this.store
         .select('user')
         .pipe(map(state => state.curency))

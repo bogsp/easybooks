@@ -68,9 +68,7 @@ export class AuthPage implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+  ngOnDestroy() { this.subs.unsubscribe(); }
 
   submit() {
     const email = this.form.value.email;
@@ -82,20 +80,13 @@ export class AuthPage implements OnInit, OnDestroy {
     }
   }
 
-  toggleLogin() {
-    this.isLoginMode = !this.isLoginMode;
-  }
+  toggleLogin() { this.isLoginMode = !this.isLoginMode; }
 
-  clear() {
-    this.form.reset();
-  }
+  clear() { this.form.reset(); }
 
   async presentLoading() {
-    const loading = await this.loadingController.create({
-      duration: 1000
-    });
+    const loading = await this.loadingController.create({ duration: 2000 });
     await loading.present();
-
     const { role, data } = await loading.onDidDismiss();
   }
 
@@ -111,7 +102,6 @@ export class AuthPage implements OnInit, OnDestroy {
           }
         ]
       });
-
       await alert.present();
     }
   }

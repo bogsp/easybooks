@@ -3,7 +3,6 @@ export interface Profile {
     firstname: string;
     lastname: string;
     email: string;
-    img?: string;
     currency: string;
     listview: string;
     valid: boolean;

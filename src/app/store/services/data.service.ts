@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import {
@@ -24,40 +24,27 @@ export class DataService {
     return from(this.collectionRef(ref, id)
       .snapshotChanges()
       .pipe(
-        // tap((docArray: any[]) => console.log(docArray)),
         map((docArray: any[]) => {
-          return docArray.map((res: any) => {
-            return this.returnData(ref, res);
-          });
+          return docArray.map((res: any) => this.returnData(ref, res));
         })
       ));
   }
 
   fetchItem(ref: string, key: string, id?: string): Observable<any> {
-    return this.collectionRef(ref, id).doc(key)
+    return from(this.collectionRef(ref, id).doc(key)
       .snapshotChanges()
       .pipe(
-        map((res: any): any => {
-          return this.returnData(ref, res);
-        })
-      );
+        map((res: any): any => this.returnData(ref, res))
+      ));
   }
 
-  addItem(ref: string, item: any, id?: string) {
-    return from(this.collectionRef(ref, id).add(item));
-  }
+  addItem(ref: string, item: any, id?: string) { return from(this.collectionRef(ref, id).add(item)); }
 
-  addCustomItem(ref: string, item: any, id?: string) {
-    return from(this.collectionRef(ref, id).doc(item.id).set({ ...item }));
-  }
+  addCustomItem(ref: string, item: any, id?: string) { return from(this.collectionRef(ref, id).doc(item.id).set({ ...item })); }
 
-  updateItem(ref: string, item: any, id?: string) {
-    return from(this.collectionRef(ref, id).doc(item.id).update({ ...item }));
-  }
+  updateItem(ref: string, item: any, id?: string) { return from(this.collectionRef(ref, id).doc(item.id).update({ ...item })); }
 
-  deleteItem(ref: string, key: any, id?: string) {
-    return from( this.collectionRef(ref, id).doc(key).delete());
-  }
+  deleteItem(ref: string, key: any, id?: string) { return from(this.collectionRef(ref, id).doc(key).delete()); }
 
   collectionRef(ref: string, id?: string) {
     switch (ref) {
@@ -71,6 +58,8 @@ export class DataService {
         return this.db.collection<Category>(ref);
       case 'types':
         return this.db.collection<Types>('categories').doc(id).collection(ref);
+      default:
+        break;
     }
   }
 
@@ -101,6 +90,8 @@ export class DataService {
           id: res.payload.doc.id,
           ...res.payload.doc.data()
         } as Types;
+      default:
+        break;
     }
   }
 

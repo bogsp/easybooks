@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ newItem ? 'New Profile' : item.firstname + ' ' + item.lastname}}</ion-title>
+    <ion-title>{{ !item?.firstname ? 'New Profile' : item.firstname + ' ' + item.lastname}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button slot="secondary" (click)="dismiss()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -43,14 +43,6 @@
                 <ion-row>
                   <ion-col>
                     <ion-item>
-                      <ion-label position="floating">Image URL</ion-label>
-                      <ion-input type="text" autocomplete formControlName="picture"></ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-item>
                       <ion-label position="floating">Currency</ion-label>
                       <ion-select autocomplete formControlName="currency">
                         <ion-select-option [value]="">USD</ion-select-option>
@@ -59,12 +51,12 @@
                     </ion-item>
                   </ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row *ngIf="!isNew">
                   <ion-col>
                     <ion-item>
                       <ion-label position="floating">List View</ion-label>
                       <ion-select autocomplete formControlName="listview">
-                        <ion-select-option [value]="'All'">All</ion-select-option>
+                        <ion-select-option [value]="'All'" selected>All</ion-select-option>
                         <ion-select-option [value]="'Today'">Today</ion-select-option>
                         <ion-select-option [value]="'Weekly'">Weekly</ion-select-option>
                         <ion-select-option [value]="'Monthly'">Monthly</ion-select-option>

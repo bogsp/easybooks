@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, NavParams, LoadingController } from '@ionic/angular';
 
-import { ProfileService } from '../../store';
+import { ProfileService, AuthService } from '../../store';
 import { Profile } from '../../store/models';
 
 @Component({
@@ -11,16 +11,22 @@ import { Profile } from '../../store/models';
   styleUrls: ['./user-modal.page.scss'],
 })
 export class UserModalPage implements OnInit {
-  @Input() newItem: boolean;
+  @Input() isNew: boolean;
   @Input() item: Profile;
   @Input() email: string;
   form: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private profileService: ProfileService,
+    private navParams: NavParams,
     private modalCtrl: ModalController,
-    public alertController: AlertController
-  ) { }
+    public alertController: AlertController,
+    public loadingController: LoadingController,
+  ) {
+    this.item = this.navParams.get('item');
+    this.isNew = !this.item;
+  }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -36,10 +42,6 @@ export class UserModalPage implements OnInit {
           Validators.required
         ]
       }),
-      picture: new FormControl(null, {
-        updateOn: 'blur',
-        validators: []
-      }),
       currency: new FormControl(null, {
         updateOn: 'blur',
         validators: []
@@ -49,11 +51,10 @@ export class UserModalPage implements OnInit {
         validators: []
       }),
     });
-    if (!this.newItem) {
+    if (!this.isNew) {
       this.form.patchValue({
         firstname: this.item.firstname,
         lastname: this.item.lastname,
-        picture: this.item.img,
         currency: this.item.currency,
         listview: this.item.listview,
       });
@@ -61,42 +62,41 @@ export class UserModalPage implements OnInit {
   }
 
   submit() {
-    // img: 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y',
     if (this.form.valid) {
       const prof = {
-        id: this.item.id,
+        id: this.authService.user.id,
         firstname: this.form.value.firstname,
         lastname: this.form.value.lastname,
-        email: this.email,
-        img: this.form.value.picture,
+        email: this.authService.user.email,
         currency: this.form.value.currency,
-        listview: this.form.value.listview,
         valid: true
-      };
-      if (this.newItem) {
+      } as Profile;
+      if (this.isNew && this.item === null) {
+        prof.listview = 'All';
         this.profileService.addCustom(prof);
-      } else { this.profileService.update(prof); }
+      } else {
+        prof.listview = this.form.value.listview;
+        this.profileService.update(prof);
+      }
+      this.presentLoading();
       this.dismiss();
     }
   }
 
-  dismiss() {
-    this.modalCtrl.dismiss({
-      dismissed: true
-    });
+  dismiss() { this.modalCtrl.dismiss({ dismissed: true }); }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({ duration: 2000 });
+    await loading.present();
+    const { role, data } = await loading.onDidDismiss();
   }
 
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Incomplete Form',
       message: 'Please complete the required fields.',
-      buttons: [
-        {
-          text: 'Ok'
-        }
-      ]
+      buttons: [{ text: 'Ok' }]
     });
-
     await alert.present();
   }
 

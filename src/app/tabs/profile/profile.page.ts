@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { SubSink } from 'subsink';
@@ -20,13 +20,13 @@ import { UserModalPage } from '../../modals';
 export class ProfilePage implements OnInit, OnDestroy {
   private subs = new SubSink();
   item: Profile;
+  id: string;
   email: string;
-  new: boolean;
+  isNew: boolean;
 
   constructor(
     private store: Store<AppState>,
     private authService: AuthService,
-    private profileService: ProfileService,
     public loadingController: LoadingController,
     public modalController: ModalController
   ) { }
@@ -34,14 +34,14 @@ export class ProfilePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subs.add(
       this.store.select('auth')
-        .pipe(map(state => state.user.email))
+        .pipe(map(state => { if (state.user) { return state.user.email; } }))
         .subscribe(email => this.email = email),
       this.store.select('user')
         .pipe(map(state => state.item))
         .subscribe(item => {
           this.item = item;
-          this.new = !item.firstname;
-          if (this.new) { this.presentModal(); }
+          this.isNew = !item;
+          if (this.isNew && this.item === null) { this.presentModal(); }
         }),
     );
   }
@@ -53,17 +53,14 @@ export class ProfilePage implements OnInit, OnDestroy {
   ngOnDestroy() { this.subs.unsubscribe(); }
 
   refresh(event: any) {
-    // this.profileService.fetchAll();
-    setTimeout(() => {
-      event.target.complete();
-    }, 2000);
+    setTimeout(() => { event.target.complete(); }, 2000);
   }
 
   async presentModal() {
     const modal = await this.modalController.create({
       component: UserModalPage,
       componentProps: {
-        newItem: this.new,
+        newItem: this.isNew,
         item: this.item,
         email: this.email
       }
