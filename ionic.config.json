@@ -1,5 +1,7 @@
 {
   "name": "easybooks",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
