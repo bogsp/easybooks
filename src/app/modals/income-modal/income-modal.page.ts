@@ -22,7 +22,7 @@ export class IncomeModalPage implements OnInit {
     private incomeService: IncomeService,
     public alertController: AlertController
   ) {
-    this.item = navParams.get('item');
+    this.item = this.navParams.get('item');
     this.isNew = !this.item;
   }
 
@@ -82,21 +82,13 @@ export class IncomeModalPage implements OnInit {
 
   getType(id: string) { return this.types.find(t => t.id === id); }
 
-  dismiss() {
-    this.modalCtrl.dismiss({
-      dismissed: true
-    });
-  }
+  dismiss() { this.modalCtrl.dismiss({ dismissed: true }); }
 
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Incomplete Form',
       message: 'Please complete the required fields.',
-      buttons: [
-        {
-          text: 'Ok'
-        }
-      ]
+      buttons: [{ text: 'Ok' }]
     });
 
     await alert.present();

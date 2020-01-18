@@ -11,7 +11,6 @@ import { ExpenseService } from '../../store';
   styleUrls: ['./expense-modal.page.scss'],
 })
 export class ExpenseModalPage implements OnInit {
-  @Input() newExpense: boolean;
   @Input() categories: Category[];
   @Input() item: Expense;
   form: FormGroup;
@@ -24,8 +23,10 @@ export class ExpenseModalPage implements OnInit {
     private navParams: NavParams,
     public alertController: AlertController
   ) {
-    this.item = navParams.get('item');
+    this.item = this.navParams.get('item');
+    this.categories = this.navParams.get('categories');
     this.isNew = !this.item;
+    if (!this.isNew) { this.getTypes(this.item.categoryId); }
   }
 
   ngOnInit() {
@@ -60,7 +61,6 @@ export class ExpenseModalPage implements OnInit {
       })
     });
     if (!this.isNew) {
-      console.log(this.item);
       this.form.patchValue({
         date: this.item.date,
         category: this.getCategory(this.item.categoryId),
@@ -94,28 +94,18 @@ export class ExpenseModalPage implements OnInit {
   getType(id: string) { return this.types.find(t => t.id === id); }
 
   getTypes(e: any) {
-    this.categories.map(i => {
-      if (i === e.detail.value) { this.types = i.types; }
-    });
+    const catID = this.isNew ? e.detail.value.id : e;
+    this.categories.map(i => { if (i.id === catID) { this.types = i.types; } });
   }
 
-  dismiss() {
-    this.modalCtrl.dismiss({
-      dismissed: true
-    });
-  }
+  dismiss() { this.modalCtrl.dismiss({ dismissed: true }); }
 
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Incomplete Form',
       message: 'Please complete the required fields.',
-      buttons: [
-        {
-          text: 'Ok'
-        }
-      ]
+      buttons: [{ text: 'Ok' }]
     });
-
     await alert.present();
   }
 

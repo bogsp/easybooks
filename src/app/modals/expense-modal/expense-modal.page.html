@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ newExpense ? 'New Expense' : 'Edit Expense' }}</ion-title>
+    <ion-title>{{ isNew ? 'New Expense' : 'Edit Expense' }}</ion-title>
     <ion-buttons slot="primary">
       <ion-button slot="secondary" (click)="dismiss()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
