@@ -15,6 +15,7 @@ export class IncomeModalPage implements OnInit {
   @Input() item: Income;
   form: FormGroup;
   isNew: boolean;
+  id: string;
 
   constructor(
     private modalCtrl: ModalController,
@@ -53,6 +54,7 @@ export class IncomeModalPage implements OnInit {
     });
 
     if (!this.isNew) {
+      this.id = this.item.id;
       this.form.patchValue({
         date: this.item.date,
         type: this.getType(this.item.typeid),
@@ -74,6 +76,7 @@ export class IncomeModalPage implements OnInit {
       if (this.isNew) {
         this.incomeService.add(this.item);
       } else {
+        this.item.id = this.id;
         this.incomeService.update(this.item);
       }
       this.dismiss();

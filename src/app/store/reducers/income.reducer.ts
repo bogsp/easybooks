@@ -39,10 +39,16 @@ const initialState: State = {
             index: 2
         },
         {
+            id: 'Magy5joUh65JErrDFwcY',
+            name: 'Remittances',
+            description: 'Remittances.',
+            index: 3
+        },
+        {
             id: '70Ka9KO9seyXBYoD5JEL',
             name: 'Other',
             description: 'Miscellaneous and other income.',
-            index: 3
+            index: 4
         },
     ],
     error: null

@@ -51,9 +51,7 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.store
         .select('auth')
         .pipe(map(state => state.user.id))
-        .subscribe(id => {
-          this.id = id;
-        }),
+        .subscribe(id => { this.id = id; }),
       this.store
         .select('user')
         .pipe(
@@ -67,9 +65,7 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.store
         .select('user')
         .pipe(map(state => state.curency))
-        .subscribe(curency => {
-          this.curr = curency;
-        }),
+        .subscribe(curency => { this.curr = curency; }),
       this.store
         .select('category')
         .pipe(map(state => state.isLoading))
@@ -80,9 +76,7 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.store
         .select('category')
         .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.categories = items;
-        }),
+        .subscribe(items => { this.categories = items; }),
       this.store
         .select('expenses')
         .pipe(map(state => state.isLoading))
@@ -93,15 +87,11 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.store
         .select('expenses')
         .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.expenses = items;
-        }),
+        .subscribe(items => { this.expenses = items; }),
       this.store
         .select('expenses')
         .pipe(map(state => state.total))
-        .subscribe(total => {
-          this.totalExpenses = total;
-        }),
+        .subscribe(total => { this.totalExpenses = total; }),
       this.store
         .select('income')
         .pipe(map(state => state.isLoading))
@@ -112,9 +102,7 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.store
         .select('income')
         .pipe(map(state => state.total))
-        .subscribe(total => {
-          this.totalIncome = total;
-        }),
+        .subscribe(total => { this.totalIncome = total; }),
     );
 
   }

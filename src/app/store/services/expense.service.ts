@@ -45,51 +45,37 @@ export class ExpenseService {
       this.store
         .select('expenses')
         .pipe(map(state => state.items))
-        .subscribe(items => {
-          this.items = items;
-        }),
+        .subscribe(items => { this.items = items; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.item))
-        .subscribe(item => {
-          this.item = item;
-        }),
+        .subscribe(item => { this.item = item; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.itemId))
-        .subscribe(itemId => {
-          this.itemId = itemId;
-        }),
+        .subscribe(itemId => { this.itemId = itemId; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.isEditing))
-        .subscribe(isEditing => {
-          this.isEditing = isEditing;
-        }),
+        .subscribe(isEditing => { this.isEditing = isEditing; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.isLoading))
-        .subscribe(loading => {
-          this.isLoading = loading;
-        }),
+        .subscribe(loading => { this.isLoading = loading; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.total))
-        .subscribe(total => {
-          this.total = total;
-        }),
+        .subscribe(total => { this.total = total; }),
 
       this.store
         .select('expenses')
         .pipe(map(state => state.error))
-        .subscribe(error => {
-          this.error = error;
-        })
+        .subscribe(error => { this.error = error; })
     );
 
     this.isAuth = this.authService.isAuth;

@@ -22,6 +22,7 @@ export class HouseComponent implements OnInit {
 
   getAmount(id: string) {
     return this.expenses
+    .filter(exp => exp.categoryId === this.category.id)
     .filter(t => t.typeid === id)
     .reduce((a, e) => a + e.amount, 0);
   }
@@ -30,9 +31,8 @@ export class HouseComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ListModalPage,
       componentProps: {
-        newIncome: true,
+        category: this.category,
         type: i,
-        expenses: this.expenses,
         curr: this.curr
       }
     });

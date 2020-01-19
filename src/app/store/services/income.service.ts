@@ -39,40 +39,22 @@ export class IncomeService {
     if (!!this.uid) { this.fetchAll(); }
   }
 
-  fetchAll() {
-    this.store.dispatch(new FetchAll(this.uid));
-  }
+  fetchAll() { this.store.dispatch(new FetchAll(this.uid)); }
 
-  fetch(key: string) {
-    this.store.dispatch(new Fetch({ id: this.uid, key }));
-  }
+  fetch(key: string) { this.store.dispatch(new Fetch({ id: this.uid, key })); }
 
-  add(item: Income) {
-    this.store.dispatch(new Add({ id: this.uid, item }));
-  }
+  add(item: Income) { this.store.dispatch(new Add({ id: this.uid, item })); }
 
-  addCustom(item: Income) {
-    this.store.dispatch(new AddCustom({ id: this.uid, item }));
-  }
+  addCustom(item: Income) { this.store.dispatch(new AddCustom({ id: this.uid, item })); }
 
-  update(item: Income) {
-    this.store.dispatch(new Update({ id: this.uid, item }));
-  }
+  update(item: Income) { this.store.dispatch(new Update({ id: this.uid, item })); }
 
-  delete(key: string) {
-    this.store.dispatch(new Delete({ id: this.uid, key }));
-  }
+  delete(key: string) { this.store.dispatch(new Delete({ id: this.uid, key })); }
 
-  startEdit() {
-    this.store.dispatch(new StartEdit());
-  }
+  startEdit() { this.store.dispatch(new StartEdit()); }
 
-  stoptEdit() {
-    this.store.dispatch(new StopEdit());
-  }
+  stoptEdit() { this.store.dispatch(new StopEdit()); }
 
-  unsub() {
-    this.subs.unsubscribe();
-  }
+  unsub() { this.subs.unsubscribe(); }
 
 }

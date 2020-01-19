@@ -31,9 +31,8 @@ export class EducComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ListModalPage,
       componentProps: {
-        newIncome: true,
+        category: this.category,
         type: i,
-        expenses: this.expenses,
         curr: this.curr
       }
     });

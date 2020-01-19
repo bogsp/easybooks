@@ -16,6 +16,7 @@ export class ExpenseModalPage implements OnInit {
   form: FormGroup;
   types: Types[];
   isNew: boolean;
+  id: string;
 
   constructor(
     private expenseService: ExpenseService,
@@ -61,6 +62,7 @@ export class ExpenseModalPage implements OnInit {
       })
     });
     if (!this.isNew) {
+      this.id = this.item.id;
       this.form.patchValue({
         date: this.item.date,
         category: this.getCategory(this.item.categoryId),
@@ -84,7 +86,10 @@ export class ExpenseModalPage implements OnInit {
       };
       if (this.isNew) {
         this.expenseService.add(this.item);
-      } else { this.expenseService.update(this.item); }
+      } else {
+        this.item.id = this.id;
+        this.expenseService.update(this.item);
+      }
       this.dismiss();
     } else { this.presentAlert(); }
   }

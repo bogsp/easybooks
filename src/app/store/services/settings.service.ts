@@ -23,22 +23,16 @@ export class SettingsService {
             this.store
                 .select('settings')
                 .pipe(map(state => state.currency))
-                .subscribe(currency => {
-                    this.currency = currency;
-                }),
+                .subscribe(currency => { this.currency = currency; }),
 
             this.store
                 .select('settings')
                 .pipe(map(state => state.listview))
-                .subscribe(listview => {
-                    this.listview = listview;
-                })
+                .subscribe(listview => { this.listview = listview; })
         );
 
         this.isAuth = this.authService.isAuth;
-        if (!this.isAuth) {
-            this.unsub();
-        }
+        if (!this.isAuth) { this.unsub(); }
     }
 
     unsub() { this.subs.unsubscribe(); }

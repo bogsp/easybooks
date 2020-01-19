@@ -29,24 +29,14 @@ export class AuthService {
     });
   }
 
-  signup(email: string, password: string) {
-    this.store.dispatch(new Signup({ email, password }));
-  }
+  signup(email: string, password: string) { this.store.dispatch(new Signup({ email, password })); }
 
-  login(email: string, password: string) {
-    this.store.dispatch(new Login({ email, password }));
-  }
+  login(email: string, password: string) { this.store.dispatch(new Login({ email, password })); }
 
-  autoLogin() {
-    this.store.dispatch(new AutoLogin());
-  }
+  autoLogin() { this.store.dispatch(new AutoLogin()); }
 
-  logout() {
-    this.store.dispatch(new Logout());
-  }
+  logout() { this.store.dispatch(new Logout()); }
 
-  clearError() {
-    this.store.dispatch(new ClearError());
-  }
+  clearError() { this.store.dispatch(new ClearError()); }
 
 }
