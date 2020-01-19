@@ -47,7 +47,6 @@ export class ListModalPage implements OnInit, OnDestroy {
 
   delete(id: string) {
     this.expenseService.delete(id);
-    this.dismiss();
   }
 
   ngOnDestroy() { this.subs.unsubscribe(); }
