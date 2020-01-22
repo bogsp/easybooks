@@ -59,13 +59,9 @@
                 </ion-row>
                 <ion-row>
                   <ion-col>
-                    <div class="ion-padding">
                       <ion-button (click)="submit()">Submit</ion-button>
-                      &nbsp;
                       <ion-button (click)="dismiss()" color="danger">Cancel</ion-button>
-                      &nbsp;
                       <ion-button *ngIf="!isNew" (click)="delete()" color="danger" fill="outline">Delete</ion-button>
-                    </div>
                   </ion-col>
                 </ion-row>
               </ion-grid>
