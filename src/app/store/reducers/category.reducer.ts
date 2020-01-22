@@ -207,16 +207,28 @@ const initialState: State = {
             description: 'Miscellaneous expenses.',
             types: [
                 {
+                    id: 'ZO2jZkaGnV0EKJvnAcRo',
+                    name: 'Accounts Receivable',
+                    description: 'Accounts receivable.',
+                    index: 0
+                },
+                {
                     id: 'lTFIDX1SkDYhn76Vqq4f',
                     name: 'Pet Supplies',
                     description: 'Pet food and supplies.',
-                    index: 0
+                    index: 1
                 },
                 {
                     id: 'xz4xGeYKRinS2GRgv7yl',
                     name: 'Pet Health',
                     description: 'Pet grooming and veterinary expenses.',
-                    index: 1
+                    index: 2
+                },
+                {
+                    id: 'AsrbxR9K9tUX9QSNUIDQ',
+                    name: 'Other',
+                    description: 'Other expenses.',
+                    index: 2
                 },
             ],
             index: 4
