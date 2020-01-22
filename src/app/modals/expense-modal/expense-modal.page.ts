@@ -94,6 +94,13 @@ export class ExpenseModalPage implements OnInit {
     } else { this.presentAlert(); }
   }
 
+  delete() {
+    if (!this.isNew) {
+      this.expenseService.delete(this.id);
+      this.dismiss();
+    }
+  }
+
   getCategory(id: string) { return this.categories.find(c => c.id === id); }
 
   getType(id: string) { return this.types.find(t => t.id === id); }

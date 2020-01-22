@@ -83,6 +83,13 @@ export class IncomeModalPage implements OnInit {
     } else { this.presentAlert(); }
   }
 
+  delete() {
+    if (!this.isNew) {
+      this.incomeService.delete(this.id);
+      this.dismiss();
+    }
+  }
+
   getType(id: string) { return this.types.find(t => t.id === id); }
 
   dismiss() { this.modalCtrl.dismiss({ dismissed: true }); }

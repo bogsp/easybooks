@@ -56,8 +56,6 @@ export class IncomePage implements OnInit, OnDestroy {
     );
   }
 
-  delete(i: string) { this.incomeService.delete(i); }
-
   getAmount(id?: string) {
     if (id) {
       return this.items

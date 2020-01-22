@@ -28,21 +28,11 @@
     <ion-row *ngIf="items?.length > 0">
       <ion-col>
         <ion-list>
-          <ion-item-sliding *ngFor="let item of items">
-            <ion-item-options side="end">
-              <ion-item-option (click)="presentModal(item)">
-                <ion-icon slot="icon-only" name="create"></ion-icon>
-              </ion-item-option>
-              <ion-item-option color="danger" (click)="delete(item.id)">
-                <ion-icon slot="icon-only" name="trash"></ion-icon>
-              </ion-item-option>
-            </ion-item-options>
-            <ion-item>
+            <ion-item *ngFor="let item of items" (click)="presentModal(item)">
             <ion-text class="date-label" position="fixed">{{ item.date | date: 'MMM dd' }}</ion-text>
             <ion-label>{{ item.description }}</ion-label>
             <p>{{ item.amount | currency: curr }}</p>
           </ion-item>
-          </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>
