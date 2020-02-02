@@ -4,6 +4,7 @@ import { ModalController, AlertController, NavParams, LoadingController } from '
 
 import { ProfileService, AuthService } from '../../store';
 import { Profile } from '../../store/models';
+import { currencies } from './currencies';
 
 @Component({
   selector: 'app-user-modal',
@@ -15,6 +16,7 @@ export class UserModalPage implements OnInit {
   @Input() item: Profile;
   @Input() email: string;
   form: FormGroup;
+  currencies = currencies;
 
   constructor(
     private authService: AuthService,

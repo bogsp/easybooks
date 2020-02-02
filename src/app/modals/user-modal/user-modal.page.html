@@ -45,8 +45,7 @@
                     <ion-item>
                       <ion-label position="floating">Currency</ion-label>
                       <ion-select autocomplete formControlName="currency">
-                        <ion-select-option [value]="">USD</ion-select-option>
-                        <ion-select-option [value]="'PHP'">PHP</ion-select-option>
+                        <ion-select-option *ngFor="let i of currencies" [value]="i">{{ i }}</ion-select-option>
                       </ion-select>
                     </ion-item>
                   </ion-col>
